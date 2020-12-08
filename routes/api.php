@@ -21,7 +21,13 @@ use App\Http\Controllers\Api\UserController;
 }); */
 
 Route::post('auth/login', [AuthController::class, 'login']);
-Route::get('users',[UserController::class, 'index']);
 
-/* Route::get('users',[UserController::class, 'index']); */
+Route::group(['middleware' => ['apiJWT']], function(){
+    Route::get('users',[UserController::class, 'index']);
+    Route::post('auth/logout', [AuthController::class, 'logout']);
+});
+
+Auth::routes();
+
+
 
