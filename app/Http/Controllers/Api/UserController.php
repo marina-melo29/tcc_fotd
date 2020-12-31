@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -16,8 +17,12 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-
         return response()->json($users);
+    }
+
+    public function show($id){
+        $user = User::all()->find($id);
+        return response()->json($user);
     }
 
     /**
@@ -37,10 +42,6 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

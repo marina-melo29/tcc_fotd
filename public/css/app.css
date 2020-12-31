@@ -75,6 +75,17 @@ body {
   background-color: #f8fafc;
 }
 
+.footer {
+  position: fixed;
+  padding: 2px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--dark);
+  color: white;
+  text-align: center;
+}
+
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }

@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Langar&family=Lobster&family=Yellowtail&display=swap');
+
+@media only screen and (max-width: 600px){
+    /* Alterar */
+    input[type=text]{
+        box-shadow: 0 0 0 0;
+        border: 0 none;
+        outline: 0;
+        background-color:#f8fafc;
+        border-radius:10px;
+        width:47%;
+        height:33px;
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+}
+
+#cabecalho-nome{
+    position: relative;
+    width: 100%;
+}
+
+
+figure {
+    display: flex;
+    flex-flow: column;
+    margin: auto;
+    width: 100%;
+    justify-content: center;
+}
+
+figcaption {
+    position: absolute; 
+    width: 100%;
+    color: black;
+    font-family: 'Langar';
+    top:10px;
+    left:25%;
+}
+
+input[type=text]{
+    box-shadow: 0 0 0 0;
+    border: 0 none;
+    outline: 0;
+    background-color:#f8fafc;
+    border-radius:10px;
+    width:47%;
+    height:33px;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+select{
+    box-shadow:2px 1px 2px black;
+    border-radius:6px;
+    text-shadow:0px 0px 2px white;
+    color:#B22222;
+    font-family: 'Langar' !important;
+    letter-spacing: 1px;
+    background:#f8fafc;
+}
+
+/* Type Number*/
+
+input[type="number"] {
+    -webkit-appearance: textfield;
+      -moz-appearance: textfield;
+            appearance: textfield;
+  }
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+  }
+  .number-input {
+    
+  }
+  .number-input button {
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 0;
+    position: relative;
+    
+  }
+  .number-input button:before,
+  .number-input button:after {
+    display: inline-block;
+    position: absolute;
+    content: '';
+    height: 2px;
+    transform: translate(-35%, -200%);
+  }
+  .number-input button.plus:after {
+    transform: translate(-35%, -200%) rotate(90deg);
+  }
+  .number-input input[type=number] {
+    text-align: center;
+  }
+  
+  
+  .sm-number-input.number-input {
+    border: 2px solid #ddd;
+    width: 60%;
+  }
+  .sm-number-input.number-input button {
+    outline: none;
+    width:20%;
+    height: 1rem;
+    padding-top: .8rem;
+  }
+  .sm-number-input.number-input button.minus {
+    padding-left: 5px;
+  }
+  .sm-number-input.number-input button.plus {
+    padding-left: 2px;
+  }
+  .sm-number-input.number-input button:before,
+  .sm-number-input.number-input button:after {
+    width: 0.8rem;
+    background-color: #212121;
+  }
+  /* Principal */
+  .sm-number-input.number-input input[type=number] {
+    max-width: 45px;
+    padding: .5rem;
+    border: solid #ddd;
+    border-width: 0 2px;
+    font-size:20px;
+    height: 1.5rem;
+    font-weight: bold;
+    outline: none;
+  }
+  @media not all and (min-resolution:.001dpcm)
+  { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    .number-input.sm-number-input.safari_only button:before, 
+    .number-input.sm-number-input.safari_only button:after {
+      margin-top: -.rem;
+    }
+  }}

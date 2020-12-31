@@ -18,11 +18,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="bootstrap">
+    <link rel="stylesheet" href="node_modules/bootstrap/scss">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark color-white shadow-sm" id="menu">
+            <div class="container" id="menu-distribution">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('inicio.name', 'Fear Of The Dice') }}
                 </a>
@@ -40,7 +42,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Ficha -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Ficha</a>
+                            <a class="nav-link" href="{{ route('ficha') }}">Ficha</a>
                         </li>
 
                         <!-- Magias -->
@@ -52,7 +54,7 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login-screen') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
                             
@@ -89,6 +91,12 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">FOOTER</span>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
