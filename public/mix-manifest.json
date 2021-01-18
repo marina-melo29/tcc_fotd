@@ -1,4 +1,10 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/site/bootstrap.css": "/site/bootstrap.css",
+    "/site/styles.css": "/site/styles.css",
+    "/css/app.css": "/css/app.css",
+    "/site/popper.js": "/site/popper.js",
+    "/site/jquery.js": "/site/jquery.js",
+    "/site/bootstrap.js": "/site/bootstrap.js",
+    "/site/icons.js": "/site/icons.js"
 }

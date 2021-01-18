@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark color-white shadow-sm" id="menu">
+        <nav class="navbar navbar-expand-md navbar-dark bg-danger color-white shadow-sm" id="menu">
             <div class="container" id="menu-distribution">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('inicio.name', 'Fear Of The Dice') }}
