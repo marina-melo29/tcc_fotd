@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Langar&family=Lobster&family=Yellowtail&display=swap');
+
+body{
+    font-family: 'Langar' !important;
+}
+
+#characters{
+    display: flex;
+    justify-content: space-between;
+}

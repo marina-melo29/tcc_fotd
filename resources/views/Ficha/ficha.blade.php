@@ -2,7 +2,7 @@
 <script src="{{ asset('site/popper.js') }}"></script>
 <script src="{{ asset('site/bootstrap.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="/site/js/ficha.js"></script>
+<script src="{{ asset('/site/js/ficha.js') }}"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ficha</title>
     @extends('\layouts\app')
-    <link rel="stylesheet" href="/site/css/ficha.css">
+    <link rel="stylesheet" href="{{asset('/site/css/ficha.css')}}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('site/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('site/styles.css') }}" rel="stylesheet">

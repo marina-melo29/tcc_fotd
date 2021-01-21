@@ -42,7 +42,7 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Ficha -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('ficha') }}">Ficha</a>
+                            <a class="nav-link" href="{{ route('historico') }}">Ficha</a>
                         </li>
 
                         <!-- Magias -->
