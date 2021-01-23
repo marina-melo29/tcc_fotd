@@ -8,3 +8,28 @@ body{
     display: flex;
     justify-content: space-between;
 }
+
+.btn-go{
+    width:60px;
+    height:auto;
+}
+
+.plus{
+    position:relative;
+    margin-top:15px;
+    margin-bottom:35px;
+    margin-right:8px;
+    height:30px;
+    width:30px;
+    background-color:#a12424;
+    color:#f8fafc;
+    outline:none;
+    border:none;
+    border-radius:10px;
+    font-size:20px;
+    padding-top:0;
+}
+
+.plus:hover{
+    background-color:#dc3545;
+}

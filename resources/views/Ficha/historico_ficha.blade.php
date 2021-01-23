@@ -25,18 +25,23 @@
 
         <div class="container-fluid my-3" id="container-header-historic">
             <div class="create-character">
-                <button class="plus">+</button>Criar Nova Ficha
+                <input type="button" value="+" class="plus" href="{{ route('nova-ficha') }}">Criar Nova Ficha
             </div>
+            
+            @for($i = 0; $i < count($personagens); $i++)
+                <div id="characters">                          
+                    <div>Nome: {{ $personagens[$i]["nome"] }}</div>                                            
+                    <div>Raça: {{ $personagens[$i]["raca"]->nm_raca }}</div>
+                    <div>Classe: {{ $personagens[$i]["classe"]->nm_classe }}</div>
+                    <div>Nivel: {{ $personagens[$i]["nivel"] }}</div>
 
-            <div id="characters">
-
-                <div>Nome</div>                                            
-                <div>Raça</div>
-                <div>Classe</div>
-                <div>Nivel</div>
-                <div>Ver</div>
-
-            </div>
+                    <form action="{{ route('user.ficha', $personagens[$i]['id']) }}" method="post">
+                        @csrf
+                        <div><input type="submit" value="Ver" class="btn btn-danger btn-go"></div>
+                    </form>                   
+                
+                </div>
+            @endfor
 
         </div>
 

@@ -24,7 +24,8 @@
 
         <div class="container border" id="section">
             <div class="container-fluid" id="container-cabecalho">
-                {{-- <form action="" method="post"> --}}
+                <form action="" method="post">
+                    @csrf
                     <div class="row pt-2 mt-3">
                         {{-- Nome do Personagem --}}
                         <nav class= "col-lg-4" id="cabecalho-nome">
@@ -431,7 +432,7 @@
                         </nav>
                     </div>
                     <input type="submit" value="Salvar" name="save" class="btn btn-danger">
-                {{-- </form> --}}
+                </form>
             </div>
         </div>
 
