@@ -20,12 +20,11 @@ class CharacterHistoricController extends Controller
         return view('ficha\historico_ficha',["personagens"=>$characters]);
     }
 
-    public function getCreator(Request $character_id){
-        $character = Tb_Personagem::where('id',$character_id)->first();
-        return view('ficha\ficha', ["character"=>$character]);
-    }
-
-    public function ShowCharacterData($character_id){
+    public function destroy(){
+        $character_id  = request()->route()->parameters['id_personagem'];
+        $characters_tb = Tb_Personagem::where('id',$character_id)->first(); 
+        $characters_tb->delete();
+        return redirect()->route('historico');
         
     }
 

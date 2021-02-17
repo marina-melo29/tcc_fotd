@@ -4,11 +4,6 @@ body{
     font-family: 'Langar' !important;
 }
 
-#characters{
-    display: flex;
-    justify-content: space-between;
-}
-
 .btn-go{
     width:60px;
     height:auto;

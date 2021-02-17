@@ -1,3 +1,14 @@
+
+function checkchanges()
+{
+
+}
+
+function savechanges()
+{
+
+}
+
 function Modifier_Calc(attr)
 {
     if(attr == 8 || attr == 9)
