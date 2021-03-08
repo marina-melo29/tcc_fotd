@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Api\CharacterController;
+//use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CharacterController;
+use App\Http\Controllers\CharacterHistoricController;
 use App\Http\Controllers\InitController;
 
 /*
@@ -16,12 +17,21 @@ use App\Http\Controllers\InitController;
 |
 */
 
-Route::get('/',              [InitController::class,'index'])       ->name('index');
+Route::get('/',[InitController::class,'index'])->name('index');
 
-//Route::get('/character/{id}',[CharacterController::class,'show'])   ->name('character-screen');
-Route::get('/ficha',         [CharacterController::class,'index'])  ->name('ficha');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']) ->name('home');
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/historico',                                [CharacterHistoricController::class,'index'])    ->name('historico');
+    Route::post('/historico/ficha/{id_personagem}',         [CharacterController::class,'getEditor'])        ->name('user.ficha');
+    Route::get('/historico/ficha/{id_personagem}',          [CharacterController::class,'getEditor'])        ->name('user.get.ficha');
+    //Route::get('/historico/ficha/',                       [CharacterController::class,'ficha'])            ->name('ficha.ficha');
+    Route::post('/historico/novo',                          [CharacterController::class,'create'])           ->name('ficha.new');
+    Route::post('/historico/ficha/{id_personagem}/updating',[CharacterController::class,'response'])         ->name('ficha.response');
+    Route::get('/historico/ficha/{id_personagem}/update',  [CharacterController::class,'update'])           ->name('ficha.update');
+    Route::post('/historico/ficha/{id_personagem}/delete',  [CharacterHistoricController::class,'destroy'])  ->name('ficha.delete');
+});
 

@@ -2,7 +2,7 @@
 <script src="{{ asset('site/popper.js') }}"></script>
 <script src="{{ asset('site/bootstrap.js') }}"></script>
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="/site/js/ficha.js"></script>
+<script src="{{ asset('/site/js/ficha.js') }}"></script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ficha</title>
     @extends('\layouts\app')
-    <link rel="stylesheet" href="/site/css/ficha.css">
+    <link rel="stylesheet" href="{{asset('/site/css/ficha.css')}}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('site/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('site/styles.css') }}" rel="stylesheet">
@@ -23,15 +23,16 @@
     @section('content')
 
         <div class="container border" id="section">
-            <div class="container-fluid" id="container-cabecalho">
-                {{-- <form action="" method="post"> --}}
+            <div class="container-fluid" id="container-cabecalho">          
+                <form name="form-ficha" class="form-ficha" autocomplete="off">  
+                    @csrf
                     <div class="row pt-2 mt-3">
                         {{-- Nome do Personagem --}}
                         <nav class= "col-lg-4" id="cabecalho-nome">
                             <figure>
-                                <img src="/site/images/ficha/name-character-original.png" alt="nome" height="80" width="330">
+                                <img src="{{ asset('site/images/ficha/name-character-original.png')}}" height="80" width="330">
                                 <figcaption>
-                                    <input type="text" name="character-name" class="col-form-input text-md-center" maxlength="20">                                
+                                    <input type="text" name="character_name" class="col-form-input text-md-center" maxlength="20" value="{{ $personagem['nome'] }}">                                
                                 </figcaption>
                             </figure>                        
                         </nav>
@@ -40,15 +41,18 @@
                         <nav class="col-1 mr-5">
                             <h6>Raça</h6>
                                 <select name="raca" id="raca" class="selectpicker">
-                                    <option value="anao">Anão</option>
-                                    <option value="elfo">Elfo</option>
-                                    <option value="halfling">Halfling</option>
-                                    <option value="humano">Humano</option>
-                                    <option value="draconato">Draconato</option>
-                                    <option value="gnomo">Gnomo</option>
-                                    <option value="meio-elfo">Meio-Elfo</option>
-                                    <option value="meio-orc">Meio-Orc</option>
-                                    <option value="tiefling">Tiefling</option>
+                                    @for($i = 0; $i < count($racas); $i++)
+                                        @if ($personagem['raca']['nm_raca'] != null)
+                                            @if ($racas[$i]->nm_raca == $personagem['raca']['nm_raca'])
+                                                <option value="{{ $racas[$i]->nm_raca }}" selected>{{ $racas[$i]->nm_raca }}</option>
+                                            @else
+                                                <option value="{{ $racas[$i]->nm_raca }}">{{ $racas[$i]->nm_raca }}</option>
+                                            @endif
+                                        @else
+                                            <option value="{{ $racas[$i]->nm_raca }}">{{ $racas[$i]->nm_raca }}</option>
+                                        @endif                                 
+                                                                                
+                                    @endfor
                                 </select>
                         </nav>
 
@@ -56,18 +60,17 @@
                         <nav class="col-1 mr-5 ml-3">
                             <h6>Classe</h6>
                                 <select name="classe" id="classe" class="selectpicker">
-                                    <option value="barbari">Bárbaro</option>
-                                    <option value="bardo">Bardo</option>
-                                    <option value="bruxo">Bruxo</option>
-                                    <option value="clerigo">Clérigo</option>
-                                    <option value="druida">Druida</option>
-                                    <option value="feiticeiro">Feiticeiro</option>
-                                    <option value="guerreiro">Guerreiro</option>
-                                    <option value="ladino">Ladino</option>
-                                    <option value="mago">Mago</option>
-                                    <option value="monge">Monge</option>
-                                    <option value="paladino">Paladino</option>
-                                    <option value="patrulheiro">Patrulheiro</option>
+                                    @for($i = 0; $i < count($classes); $i++)
+                                        @if ($personagem['classe']['nm_classe'] != null)
+                                            @if ($classes[$i]->nm_classe == $personagem['classe']->nm_classe)
+                                                <option value="{{ $classes[$i]->nm_classe }}" selected>{{ $classes[$i]->nm_classe }}</option>
+                                            @else
+                                                <option value="{{ $classes[$i]->nm_classe }}">{{ $classes[$i]->nm_classe }}</option>
+                                            @endif
+                                        @else
+                                            <option value="{{ $classes[$i]->nm_classe }}">{{ $classes[$i]->nm_classe }}</option>
+                                        @endif                                                                        
+                                    @endfor
                                 </select>
                         </nav>
 
@@ -75,15 +78,19 @@
                         <nav class="col-2 ml-4">
                             <h6>Alinhamento</h6>
                                 <select name="alinhamento" id="alinhamento" class="selectpicker">
-                                    <option value="lb">Leal-Bom</option>
-                                    <option value="ln">Leal-Neutro</option>
-                                    <option value="lm">Leal-Mau</option>
-                                    <option value="nb">Neutro-bom</option>
-                                    <option value="nn">Neutro</option>
-                                    <option value="nm">Neutro-mau</option>
-                                    <option value="cb">Caótico-bom</option>
-                                    <option value="cn">Caótico-neutro</option>
-                                    <option value="cm">Caótico-mau</option>
+                                    @for($i = 0; $i < count($alinhamento); $i++)
+
+                                        @if ($personagem['alinhamento'] != null)
+                                            @if ($alinhamento[$i]->nm_alinhamento == $personagem['alinhamento']->nm_alinhamento)
+                                                <option value="{{ $alinhamento[$i]->nm_alinhamento }}" selected>{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                            @else
+                                                <option value="{{ $alinhamento[$i]->nm_alinhamento }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                            @endif
+                                        @else
+                                            <option value="{{ $alinhamento[$i]->nm_alinhamento }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                        @endif
+                                                                                
+                                    @endfor
                                 </select>
                         </nav>
 
@@ -99,9 +106,9 @@
                         <nav class="col-2 my-3 ml-4">
                             <h6>Percepção Passiva</h6>
                             <div class="number-input sm-number-input lg-number-input">
-                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                <input class="quantity" min="0" name="quantity" value="0" type="number">
-                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                <input class="quantity" min="0" name="quantity" value="{{ $personagem['pp'] }}" type="number">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                             </div>
                         </nav>
 
@@ -109,9 +116,9 @@
                         <nav class="col-2">
                             <h6>Bônus de Proficiência</h6>
                             <div class="number-input sm-number-input lg-number-input">
-                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                <input class="quantity" min="2" name="quantity" value="2" type="number">
-                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                <input class="quantity" min="2" name="quantity" value="{{ $personagem['bp'] }}" type="number">
+                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                             </div>
                         </nav>
 
@@ -119,9 +126,9 @@
                         <nav class="col-2 my-3">
                                 <h6>Nível</h6>
                                 <div class="number-input sm-number-input lg-number-input">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                    <input class="quantity" min="1" name="quantity" value="1" type="number">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                    <input class="quantity" min="1" name="quantity" value="{{ $personagem['nivel'] }}" type="number">
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                 </div>
                         </nav>
                         
@@ -136,9 +143,9 @@
                             <div class="attribute">
                                 <h5>Força</h5>
                                 <div class="number-input sm-number-input lg-number-input">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_forca"></button>
-                                    <input class="quantity" id="quant-forca" min="8" max="20" name="quantity" value="8" type="number" readonly>
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_forca"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_forca"></button>
+                                    <input class="quantity" id="quant-forca" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['forca'] !=null) ? $personagem['atributos']['forca'] : 8 }}" type="number" readonly>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_forca"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_forca"></p></div>
                             </div>
@@ -146,9 +153,9 @@
                             <div class="attribute">
                                 <h5>Const</h5>
                                 <div class="number-input sm-number-input lg-number-input">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_const"></button>
-                                    <input class="quantity" id="quant-const" min="8" max="20" name="quantity" value="8" type="number" readonly>
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_const"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_const"></button>
+                                    <input class="quantity" id="quant-const" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['constituicao'] !=null) ? $personagem['atributos']['constituicao'] : 8 }}" type="number" readonly>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_const"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_const"></p></div>
                             </div>  
@@ -156,9 +163,9 @@
                             <div class="attribute">
                                 <h5>Dest</h5>
                                 <div class="number-input sm-number-input lg-number-input">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_dest"></button>
-                                    <input class="quantity" id="quant-dest" min="8" max="20" name="quantity" value="8" type="number" readonly>
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_dest"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_dest"></button>
+                                    <input class="quantity" id="quant-dest" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['destreza'] !=null) ? $personagem['atributos']['destreza'] : 8 }}" type="number" readonly>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_dest"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_dest"></p></div>
                             </div> 
@@ -166,9 +173,9 @@
                             <div class="attribute">
                                 <h5>Int</h5>
                                 <div class="number-input sm-number-input lg-number-input">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_int"></button>
-                                    <input class="quantity" id="quant-int" min="8" max="20" name="quantity" value="8" type="number" readonly>
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_int"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_int"></button>
+                                    <input class="quantity" id="quant-int" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['inteligencia'] !=null) ? $personagem['atributos']['inteligencia'] : 8 }}" type="number" readonly>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_int"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_int"></p></div>
                             </div>
@@ -176,9 +183,9 @@
                             <div class="attribute">
                                 <h5>Sab</h5>
                                 <div class="number-input sm-number-input lg-number-input">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_sab"></button>
-                                    <input class="quantity" id="quant-sab" min="8" max="20" name="quantity" value="8" type="number" readonly>
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_sab"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_sab"></button>
+                                    <input class="quantity" id="quant-sab" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['sabedoria'] !=null) ? $personagem['atributos']['sabedoria'] : 8 }}" type="number" readonly>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_sab"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_sab"></p></div>
                             </div>
@@ -186,9 +193,9 @@
                             <div class="attribute">
                                 <h5>Car</h5>
                                 <div class="number-input sm-number-input lg-number-input">
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_car"></button>
-                                    <input class="quantity" id="quant-car" min="8" max="20" name="quantity" value="8" type="number" readonly>
-                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_car"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_car"></button>
+                                    <input class="quantity" id="quant-car" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['carisma'] !=null) ? $personagem['atributos']['carisma'] : 8 }}" type="number" readonly>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_car"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_car"></p></div>
                             </div>                       
@@ -203,12 +210,12 @@
                                 <nav class="col-4">
                                     <figure class="life basic-info">
                                         <h5>Vida</h5>
-                                        <img src="/site/images/ficha/coraca1.png" alt="vida" height="100" width="100">
+                                        <img src="{{ asset('site/images/ficha/coraca1.png')}}" alt="vida" height="100" width="100">
                                         <figcaption>                                
                                             <div class="number-input sm-number-input lg-number-input">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="0" name="quantity" value="0" type="number">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                                <input class="quantity" min="0" name="quantity" value="{{ $personagem['pv'] }}" type="number">
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>                              
                                         </figcaption>
                                     </figure>
@@ -218,12 +225,12 @@
                                 <nav class="col-4">
                                     <figure class="life current-life basic-info">
                                         <h5>Vida Atual</h5>
-                                        <img src="/site/images/ficha/vida-atual.png" alt="vida" height="105" width="90">
+                                        <img src="{{ asset('site/images/ficha/vida-atual.png')}}" alt="vida" height="105" width="90">
                                         <figcaption>                                
                                             <div class="number-input sm-number-input lg-number-input">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="0" name="quantity" value="0" type="number">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                                <input class="quantity" min="0" name="quantity" value="{{ $personagem['pv_atual'] }}" type="number">
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>                              
                                         </figcaption>
                                     </figure>
@@ -233,12 +240,12 @@
                                 <nav class="col-4">
                                     <figure class="CA basic-info">
                                         <h5>Classe de Armadura</h5>
-                                        <img src="/site/images/ficha/shield1.png" alt="vida" height="80" width="85">
+                                        <img src="{{ asset('site/images/ficha/shield1.png')}}" alt="vida" height="80" width="85">
                                         <figcaption>                                
                                             <div class="number-input sm-number-input lg-number-input">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
                                                 <input class="quantity" min="10" name="quantity" value="10" type="number">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>                              
                                         </figcaption>
                                     </figure>
@@ -250,9 +257,9 @@
                                         <h5>Iniciativa</h5>
                                         <div class="circle">
                                             <div class="number-input sm-number-input lg-number-input">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
                                                 <input class="quantity" min="0" name="quantity" value="0" type="number">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>
                                         </div> 
                                     </div>                                                                  
@@ -265,9 +272,9 @@
                                         <h5>Deslocamento</h5>
                                         <div class="circle">
                                             <div class="number-input sm-number-input lg-number-input">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
                                                 <input class="quantity" min="1" name="quantity" value="9" type="number">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>
                                         </div> 
                                     </div>                                                                                                     
@@ -279,9 +286,9 @@
                                         <h5>Inspiração</h5>
                                         <div class="circle">
                                             <div class="number-input sm-number-input lg-number-input">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
                                                 <input class="quantity" min="0" name="quantity" value="0" type="number">
-                                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>
                                         </div> 
                                     </div>                                                                                                     
@@ -294,7 +301,7 @@
                                 <nav class="col-8">                                                           
                                     <div class="pericias">
                                         <h6>Perícias</h6>                                    
-                                            <button class="accordion first-accordion">
+                                            <button type="button" class="accordion first-accordion">
                                                 <p>Força
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                         <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
@@ -306,7 +313,7 @@
                                                 <input type="checkbox"   id="atletismo"       name="atletismo"       value="atletismo">
                                                 <label for="atletismo">Atletismo</label>
                                             </div>                                      
-                                            <button class="accordion first-accordion">
+                                            <button type="button" class="accordion first-accordion">
                                                 <p>Destreza
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                         <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
@@ -322,7 +329,7 @@
                                                 <label for="prestidigitacao">Prestidigitação</label>
                                             </div>
                                             
-                                            <button class="accordion first-accordion">
+                                            <button type="button" class="accordion first-accordion">
                                                 <p>Inteligência
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                         <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
@@ -342,7 +349,7 @@
                                                 <label for="religiao">Religião</label>
                                             </div> 
 
-                                            <button class="accordion first-accordion">
+                                            <button type="button" class="accordion first-accordion">
                                                 <p>Sabedoria
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                         <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
@@ -362,7 +369,7 @@
                                                 <label for="sobrevivencia">Sobrevivência</label>
                                             </div> 
 
-                                            <button class="accordion first-accordion">
+                                            <button type="button" class="accordion first-accordion">
                                                 <p>Carisma
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                                         <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
@@ -384,7 +391,7 @@
 
                                 <nav class="col-3">
                                     <div class="moedas">
-                                        <h6>PC</h6>
+                                        <h6></h6>
                                         
                                     </div>
                                 </nav>
@@ -415,28 +422,73 @@
 
                         {{-- QUARTA COLUNA --}}
                         <nav class="col-3">
+                            {{-- TO DO --}}
                             <div class="row">
-                                <button class="accordion second-accordion">Outras proficiências e idiomas</button>
+                                <button type="button" class="accordion second-accordion">Outras proficiências e idiomas</button>
                                 <div class="panel second-panel">
                                     <textarea name="others" class="notes"></textarea>
                                 </div>
 
-                                <button class="accordion second-accordion">Equipamento</button>
+                                <button type="button" class="accordion second-accordion">Equipamento</button>
                                 <div class="panel second-panel">
                                     <textarea name="others" class="notes"></textarea>
-                                </div>                       
-
-                                
+                                    {{-- @for($i = 0; $i < count($racas); $i++)
+                                        @if ($armadura[$i]->tipo_armadura == $personagem['armadura']->tipo_armadura)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="armadura" id="armor" value="option1" checked>
+                                                <label class="form-check-label" for="armor">
+                                                    valor
+                                                </label>
+                                            </div>
+                                        @else
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="armadura" id="armor" value="option1">
+                                                <label class="form-check-label" for="armor">
+                                                    valor
+                                                </label>
+                                            </div>
+                                        @endif                                        
+                                    @endfor --}}                                    
+                                    
+                                </div>                    
+                               
                             </div>
                         </nav>
                     </div>
-                    <input type="submit" value="Salvar" name="save" class="btn btn-danger">
-                {{-- </form> --}}
+
+                    <input type="submit" value="Salvar" name="save" id="submit" class="btn btn-danger">
+                </form>  
             </div>
         </div>
 
         <script>
             accordion();
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
+
+        <script>
+            $(function(){
+                $('form[name="form-ficha"]').submit(function(event){
+                    event.preventDefault();
+
+                    $.ajax({
+                        url: "{{ route('ficha.response', $personagem['id']) }}",
+                        type: 'post',
+                        data: $(this).serialize(),
+                        dataType: 'json',
+                        success: function(response){
+                            if(response.success === true){
+                                window.location.href = '{{ route('ficha.update', $personagem['id']) }}';
+                                //console.log(response);                                
+                            }else{
+                                console.log("erro");
+                            }
+                        }
+                    });
+                    
+                });
+            });
+
         </script>
         
     @endsection
