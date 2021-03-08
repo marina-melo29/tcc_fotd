@@ -45,7 +45,7 @@
 
                         <!-- Magias -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Magias</a>
+                            <a class="nav-link" href="{{ route('magias.get') }}">Magias</a>
                         </li>
 
                         <!-- Authentication Links -->
