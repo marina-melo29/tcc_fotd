@@ -14,3 +14,15 @@ function accordion(){
     });
     }
 }
+
+//Função search só pega o que está na página. 
+function search(){
+    $(document).ready(function(){
+        $("#pesquisa-magia").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#lista-magia li").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+}

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\Paginator;
 use App\Models\Tb_Magias;
 use App\Models\Tb_Classe;
-use App\Models\Tb_Classe_Magias;
 
 class MagicsController extends Controller
 {
@@ -18,67 +17,75 @@ class MagicsController extends Controller
     }
 
     public function index(){
-        $user_id = Auth::user();
-        //$dados_magias = $this->getMagias();
-        $magias = Tb_Magias::paginate(12);
-        return view("magias",['usuario'=>$user_id,'magias'=>$magias]);
+        return $this->getMagics();        
     }
 
-    public function getMagias(){
-        $magics_data    = Tb_Magias::orderBy('nm_magia', 'asc')->paginate(12);
+    public function getMagics(){
+        $classe         = new Tb_Magias();
+        $conjuradores   = $classe->getSpellcasters();
+        $user_id        = Auth::user();
+        $magics         = Tb_Magias::paginate(12);
         $classes        = Tb_Classe::all();
-        $conjuradores   = [];
-        $magias = []; 
-        
-        for ($i=0; $i < count($magics_data); $i++) { 
-            $a = Tb_Classe_Magias::Select('id_classe')->Where('id_magia',$magics_data[$i]->id_magia)->get();
-
-            for ($j=0; $j < count($a) ; $j++) { 
-                $conjuradores= Tb_Classe::Select('nm_classe')->Where('id_classe',$a[$j]['id_classe'])->first();
-                $magias[$i]["conjuradores"][$j] = $conjuradores['nm_classe'];                 
-            }
-            
-            $magias[$i]["id"]           = $magics_data[$i]->id_magia;
-            $magias[$i]["nome"]         = $magics_data[$i]->nm_magia;
-            $magias[$i]["desc"]         = $magics_data[$i]->desc_magia;
-            $magias[$i]["nivel"]        = $magics_data[$i]->nivel_magia;
-            $magias[$i]["componentes"]  = $magics_data[$i]->componentes;
-            $magias[$i]["duracao"]      = $magics_data[$i]->duracao;
-            $magias[$i]["distancia"]    = $magics_data[$i]->distancia;
-            $magias[$i]["duracao"]      = $magics_data[$i]->duracao;
-            $magias[$i]["preparo"]      = $magics_data[$i]->tempo_de_preparo;
-            $magias[$i]["escola"]       = $magics_data[$i]->escola_magia;
-            $magias[$i]["qtd_conjuradores"] = count($a);
-        }        
-        return $magias;
+        return view("magias",['usuario'=>$user_id,'magias'=>$magics, 'conjuradores'=>$conjuradores,'classes'=>$classes]);
     }
 
-    public function arrumaBD()
-    {
-        $magics_data    = Tb_Magias::orderBy('nm_magia', 'asc')->get();
-        $classes        = Tb_Classe::all();
-        
-        $magias = []; 
-        
-        
-        for ($i=0; $i < count($magics_data); $i++) 
-        { 
-            $str_classes[$i]= "".$magics_data[$i]->nm_magia." =>  ";
-            $ids_classe_magia = Tb_Classe_Magias::Select('id_classe')->Where('id_magia',$magics_data[$i]->id_magia)->get();
-            
-            for ($j=0; $j < count($ids_classe_magia) ; $j++) { 
-                $conjuradores= Tb_Classe::Select('nm_classe')->Where('id_classe',$ids_classe_magia[$j]['id_classe'])->first();
-                
-                //na posição $i vai inserir uma string com as classes x,y,z
-                $str_classes[$i] .= "".$conjuradores['nm_classe']; 
-                if(isset($ids_classe_magia[$j+1])){
-                    $str_classes[$i] .= ",";
-                }
-            } 
-            
+    public function response(Request $request)
+    {   
+        if($request->pesquisa_magia != null && $request->pesquisa_magia != ''){
+            $teste['success']  = true; 
+            $teste['nm_magia'] = $request->pesquisa_magia; 
+            $teste['nivel'] = $request->nivel;  
+            $teste['classe'] = $request->classe; 
+            $teste['ritual'] = $request->ritual; 
+
+            echo json_encode($teste);
+        }else{
+            $teste['success'] = false;  
+            echo json_encode($teste);          
         }
-        dd($str_classes);
         
-    }  
+    }
+
+    public function getMagic(Request $request){
+        
+        $filter = ['nm_magia' => $request->pesquisa_magia, 'nivel_magia' => $request->nivel, 'id_classe' => $request->classe]; 
+        $query = "SELECT * FROM tb_magias";
+
+        $nomes_filtros = ['nm_magia','nivel_magia','id_classe'];
+        $filled = [];
+
+        #Confere filtros preenchidos:
+        for ($i=0; $i < count($nomes_filtros) ; $i++) { 
+            if ($filter[$nomes_filtros[$i]]  != "" && $filter[$nomes_filtros[$i]]  != "%all_items%") {
+                $filled[] = "".$nomes_filtros[$i]."";
+            }
+        }
+
+        #Monta a Query com base nos filtros preenchidos:  
+        if (isset($filled)) {
+            for ($i=0; $i < count($filled); $i++) { 
+                if ($i == 0) {
+                    $query .= " WHERE ";
+                }
+                if ($i == count($filled)-1) {
+                    $query .= "".$filled[$i]." = ".$filter[$filled[$i]]."";
+                }
+                else
+                {
+                    $query .= "".$filled[$i]." = ".$filter[$filled[$i]]." and ";
+                }  
+            }
+        }      
+
+        $teste = Tb_Magias::select($query)->get();
+        
+        dd($teste);
+        /* $magics       = Tb_Magias::where('nm_magia','like','%'.$requested_magic_name.'%')->paginate(12);
+        $tb_magia     = new Tb_Magias();             
+        $classes      = Tb_Classe::all();    
+        $spellcasters = $tb_magia->getSearchedMagic($requested_magic_name,$requested_level,$requested_class,$ritual_check);
+        
+        return view("magias",['magias'=>$magics, 'conjuradores'=>$spellcasters, 'classes'=>$classes]); */
+    }
 
 }

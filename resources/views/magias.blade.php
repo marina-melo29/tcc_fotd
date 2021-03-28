@@ -29,22 +29,42 @@
             <nav class="filtro my-3">
                 <button type="button" class="accordion filtro-accordion border">Filtros</button>
                     <div class="panel second-panel">
-                        <form action="#" method="post">
+                        <form method="post" name="form-magia" autocomplete="off" action="{{ route('magia.get') }}">
+                            @csrf
                             <div class="row">
-                                <label for="nivel">Nivel</label>                            
-                                <div class="number-input sm-number-input lg-number-input" id="nivel">
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                    <input class="quantity" min="0" name="quantity" value="0" type="number">
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                <div class="pesquisa col-12 my-1">
+                                    <input type="search" placeholder="Digite aqui o nome da magia" name="pesquisa_magia" id="pesquisa-magia">
                                 </div>
 
-                                <label for="classe">Classe</label>
-                                <select name="classe" id="classe"><option value="#">classes</option></select>
-
-                                <label for="ritual">É ritual?</label>
-                                <input type="checkbox" name="ritual" id="ritual">
+                                <div class="nivel col-4 my-1">
+                                    <label for="nivel">Nivel</label>                                                                
+                                    <select name="nivel" id="nivel" class="selectpicker">
+                                        <option value="%all_items%">Todos</option>
+                                        @for ($i = 1; $i < 10; $i++)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
+                                                                
+                                <div class="classe col-5 my-1">   
+                                    <label for="classe">Classe</label>                                 
+                                    <select name="classe" id="classe" class="selectpicker">
+                                        <option value="%all_items%">Todas</option>
+                                        @for($i = 0; $i < count($classes); $i++)                                                                                        
+                                            <option value="{{ $classes[$i]->id_classe }}">{{ $classes[$i]->nm_classe }}</option>                                                                                                                  
+                                        @endfor
+                                    </select>
+                                </div>
                                 
-                                <button type="submit" class="btn btn-danger">Buscar</button>
+                                {{-- <div class="ritual col-4 my-1">
+                                    <label for="ritual">É ritual?</label>
+                                    <input type="checkbox" name="ritual" id="ritual">
+                                </div> --}}
+                                
+                                <div class="col-6 my-1">
+                                    <button type="submit" class="btn btn-danger">Buscar</button>
+                                </div>
+                                
                             </div>
                             
                         </form>
@@ -58,25 +78,27 @@
                     {{ $magias->links('pagination::bootstrap-4') }}
         
                 </div>
-                
-                <div class="row">  
-                    @foreach($magias as $magia)
-                        <div class="col-4 dados-magia my-3"> 
-                            <nav id="titulo-magia border"><h3>{{ $magia->nm_magia }}</h3></nav>
-                            <nav id="escola-magia"><h6>{{ $magia->nivel_magia }}º nivel de {{ $magia->escola_magia }}</h6></nav>
-                            {{-- <nav id="Conjuradores"><h6><b>Conjuradores: 
-                                @for($j=0; $j < $magias[$i]['qtd_conjuradores']; $j++)
-                                    {{ $magias[$i]['conjuradores'][$j] }},
-                                @endfor
-                            </b></h6></nav> --}}
-                            <nav id="tempo_de_preparo"><h6><b>Tempo de Preparo: </b>{{ $magia->tempo_de_preparo }}</h6></nav>
-                            <nav id="distancia"><h6><b>Alcance: </b>{{ $magia->distancia }}</h6></nav>
-                            <nav id="componentes"><h6><b>Componentes: </b>{{ $magia->componentes }}</h6></nav>
-                            <nav id="duracao"><h6><b>Duração: </b>{{ $magia->duracao }}</h6></nav>
-                            <nav id="descricao"><h6>{{ $magia->desc_magia }}</h6></nav>
-                        </div>
-                    @endforeach
-                </div>
+
+                <ul class="list-group" id="lista-magia">
+                    <div class="row">  
+                            @foreach($magias as $magia)
+                                <div class="col-4 dados-magia my-3"> 
+                                    <li class="list-group-item">
+                                        <nav id="titulo-magia border"><h3>{{ $magia->nm_magia }}</h3></nav>
+                                        <nav id="escola-magia"><h6>{{ $magia->nivel_magia }}º nivel de {{ $magia->escola_magia }}</h6></nav>
+                                        <nav id="Conjuradores"><h6><b>Conjuradores:     
+                                            {{ $conjuradores[$magia->id_magia]}}
+                                        </b></h6></nav>
+                                        <nav id="tempo_de_preparo"><h6><b>Tempo de Preparo: </b>{{ $magia->tempo_de_preparo }}</h6></nav>
+                                        <nav id="distancia"><h6><b>Alcance: </b>{{ $magia->distancia }}</h6></nav>
+                                        <nav id="componentes"><h6><b>Componentes: </b>{{ $magia->componentes }}</h6></nav>
+                                        <nav id="duracao"><h6><b>Duração: </b>{{ $magia->duracao }}</h6></nav>
+                                        <nav id="descricao"><h6>{{ $magia->desc_magia }}</h6></nav>
+                                    </li>                            
+                                </div>
+                            @endforeach
+                    </div>
+                </ul>
 
                 <div class="d-felx justify-content-center">
 
@@ -88,8 +110,10 @@
             </nav>
             
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
         <script>
             accordion();
+           
         </script>
     @endsection
     
