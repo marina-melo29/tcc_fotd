@@ -46,46 +46,25 @@ class MagicsController extends Controller
         
     }
 
-    public function getMagic(Request $request){
+    public function getMagic(Request $request){        
         
-        $filter = ['nm_magia' => $request->pesquisa_magia, 'nivel_magia' => $request->nivel, 'id_classe' => $request->classe]; 
-        $query = "SELECT * FROM tb_magias";
+        #requests
+        $name  = $request->pesquisa_magia; 
+        $level = $request->nivel; 
+        $class = $request->classe; 
 
-        $nomes_filtros = ['nm_magia','nivel_magia','id_classe'];
-        $filled = [];
-
-        #Confere filtros preenchidos:
-        for ($i=0; $i < count($nomes_filtros) ; $i++) { 
-            if ($filter[$nomes_filtros[$i]]  != "" && $filter[$nomes_filtros[$i]]  != "%all_items%") {
-                $filled[] = "".$nomes_filtros[$i]."";
-            }
-        }
-
-        #Monta a Query com base nos filtros preenchidos:  
-        if (isset($filled)) {
-            for ($i=0; $i < count($filled); $i++) { 
-                if ($i == 0) {
-                    $query .= " WHERE ";
-                }
-                if ($i == count($filled)-1) {
-                    $query .= "".$filled[$i]." = ".$filter[$filled[$i]]."";
-                }
-                else
-                {
-                    $query .= "".$filled[$i]." = ".$filter[$filled[$i]]." and ";
-                }  
-            }
-        }      
-
-        $teste = Tb_Magias::select($query)->get();
+        #Call magics function
+        $magic_table = new Tb_Magias();
+        $magic       = $magic_table->getMagic($name, $level, $class);
         
-        dd($teste);
-        /* $magics       = Tb_Magias::where('nm_magia','like','%'.$requested_magic_name.'%')->paginate(12);
-        $tb_magia     = new Tb_Magias();             
+        #Call spellcasters function
+        $spellcasters = $magic_table->getSearchedMagic($magic);
+
+        #Get all classes
         $classes      = Tb_Classe::all();    
-        $spellcasters = $tb_magia->getSearchedMagic($requested_magic_name,$requested_level,$requested_class,$ritual_check);
         
-        return view("magias",['magias'=>$magics, 'conjuradores'=>$spellcasters, 'classes'=>$classes]); */
+        
+        //return view("magias",['magias'=>$magic, 'conjuradores'=>$spellcasters, 'classes'=>$classes]);
     }
 
 }

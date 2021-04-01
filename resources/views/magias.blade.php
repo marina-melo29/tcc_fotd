@@ -40,7 +40,7 @@
                                     <label for="nivel">Nivel</label>                                                                
                                     <select name="nivel" id="nivel" class="selectpicker">
                                         <option value="%all_items%">Todos</option>
-                                        @for ($i = 1; $i < 10; $i++)
+                                        @for ($i = 0; $i < 10; $i++)
                                             <option value="{{ $i }}">{{ $i }}</option>
                                         @endfor
                                     </select>
