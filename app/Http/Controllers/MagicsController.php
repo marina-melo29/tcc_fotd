@@ -64,7 +64,7 @@ class MagicsController extends Controller
         $classes      = Tb_Classe::all();    
         
         
-        //return view("magias",['magias'=>$magic, 'conjuradores'=>$spellcasters, 'classes'=>$classes]);
+        return view("magias",['magias'=>$magic, 'conjuradores'=>$spellcasters, 'classes'=>$classes]);
     }
 
 }
