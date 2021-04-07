@@ -24,7 +24,7 @@
 
         <div class="container border" id="section">
             <div class="container-fluid" id="container-cabecalho">          
-                <form name="form-ficha" class="form-ficha" autocomplete="off">  
+                <form name="form-ficha" action="{{ route('ficha.update', $personagem['id']) }}" method="POST" class="form-ficha" autocomplete="off">  
                     @csrf
                     <div class="row pt-2 mt-3">
                         {{-- Nome do Personagem --}}
@@ -32,7 +32,7 @@
                             <figure>
                                 <img src="{{ asset('site/images/ficha/name-character-original.png')}}" height="80" width="330">
                                 <figcaption>
-                                    <input type="text" name="character_name" class="col-form-input text-md-center" maxlength="20" value="{{ $personagem['nome'] }}">                                
+                                    <input type="text" name="nome_personagem" class="col-form-input text-md-center" maxlength="20" value="{{ $personagem['nome'] }}">                                
                                 </figcaption>
                             </figure>                        
                         </nav>
@@ -44,12 +44,12 @@
                                     @for($i = 0; $i < count($racas); $i++)
                                         @if ($personagem['raca']['nm_raca'] != null)
                                             @if ($racas[$i]->nm_raca == $personagem['raca']['nm_raca'])
-                                                <option value="{{ $racas[$i]->nm_raca }}" selected>{{ $racas[$i]->nm_raca }}</option>
+                                                <option value={{ $racas[$i]->id_raca }} selected>{{ $racas[$i]->nm_raca }}</option>
                                             @else
-                                                <option value="{{ $racas[$i]->nm_raca }}">{{ $racas[$i]->nm_raca }}</option>
+                                                <option value={{ $racas[$i]->id_raca }}>{{ $racas[$i]->nm_raca }}</option>
                                             @endif
                                         @else
-                                            <option value="{{ $racas[$i]->nm_raca }}">{{ $racas[$i]->nm_raca }}</option>
+                                            <option value={{ $racas[$i]->id_raca }}>{{ $racas[$i]->nm_raca }}</option>
                                         @endif                                 
                                                                                 
                                     @endfor
@@ -63,12 +63,12 @@
                                     @for($i = 0; $i < count($classes); $i++)
                                         @if ($personagem['classe']['nm_classe'] != null)
                                             @if ($classes[$i]->nm_classe == $personagem['classe']->nm_classe)
-                                                <option value="{{ $classes[$i]->nm_classe }}" selected>{{ $classes[$i]->nm_classe }}</option>
+                                                <option value="{{ $classes[$i]->id_classe }}" selected>{{ $classes[$i]->nm_classe }}</option>
                                             @else
-                                                <option value="{{ $classes[$i]->nm_classe }}">{{ $classes[$i]->nm_classe }}</option>
+                                                <option value="{{ $classes[$i]->id_classe }}">{{ $classes[$i]->nm_classe }}</option>
                                             @endif
                                         @else
-                                            <option value="{{ $classes[$i]->nm_classe }}">{{ $classes[$i]->nm_classe }}</option>
+                                            <option value="{{ $classes[$i]->id_classe }}">{{ $classes[$i]->nm_classe }}</option>
                                         @endif                                                                        
                                     @endfor
                                 </select>
@@ -82,19 +82,19 @@
 
                                         @if ($personagem['alinhamento'] != null)
                                             @if ($alinhamento[$i]->nm_alinhamento == $personagem['alinhamento']->nm_alinhamento)
-                                                <option value="{{ $alinhamento[$i]->nm_alinhamento }}" selected>{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                                <option value="{{ $alinhamento[$i]->id_alinhamento }}" selected>{{ $alinhamento[$i]->nm_alinhamento }}</option>
                                             @else
-                                                <option value="{{ $alinhamento[$i]->nm_alinhamento }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                                <option value="{{ $alinhamento[$i]->id_alinhamento }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
                                             @endif
                                         @else
-                                            <option value="{{ $alinhamento[$i]->nm_alinhamento }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                            <option value="{{ $alinhamento[$i]->id_alinhamento }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
                                         @endif
                                                                                 
                                     @endfor
                                 </select>
                         </nav>
 
-                        {{-- Antecedente --}}
+                        {{-- Antecedente TO DO --}}
                         <nav class="col-1 mr-4">
                             <h6>Antecedente</h6>
                             <Select name="antecedente" class="selectpicker">
@@ -107,7 +107,7 @@
                             <h6>Percepção Passiva</h6>
                             <div class="number-input sm-number-input lg-number-input">
                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                <input class="quantity" min="0" name="quantity" value="{{ $personagem['pp'] }}" type="number">
+                                <input class="quantity" min="0" name="pp" value="{{ $personagem['pp'] }}" type="number">
                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                             </div>
                         </nav>
@@ -117,7 +117,7 @@
                             <h6>Bônus de Proficiência</h6>
                             <div class="number-input sm-number-input lg-number-input">
                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                <input class="quantity" min="2" name="quantity" value="{{ $personagem['bp'] }}" type="number">
+                                <input class="quantity" min="2" name="bp" value="{{ $personagem['bp'] }}" type="number">
                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                             </div>
                         </nav>
@@ -127,7 +127,7 @@
                                 <h6>Nível</h6>
                                 <div class="number-input sm-number-input lg-number-input">
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                    <input class="quantity" min="1" name="quantity" value="{{ $personagem['nivel'] }}" type="number">
+                                    <input class="quantity" min="1" name="nivel" value="{{ $personagem['nivel'] }}" type="number">
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                 </div>
                         </nav>
@@ -214,7 +214,7 @@
                                         <figcaption>                                
                                             <div class="number-input sm-number-input lg-number-input">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="0" name="quantity" value="{{ $personagem['pv'] }}" type="number">
+                                                <input class="quantity" min="0" name="vida" value="{{ $personagem['pv'] }}" type="number">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>                              
                                         </figcaption>
@@ -229,7 +229,7 @@
                                         <figcaption>                                
                                             <div class="number-input sm-number-input lg-number-input">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="0" name="quantity" value="{{ $personagem['pv_atual'] }}" type="number">
+                                                <input class="quantity" min="0" name="vida_atual" value="{{ $personagem['pv_atual'] }}" type="number">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>                              
                                         </figcaption>
@@ -244,7 +244,7 @@
                                         <figcaption>                                
                                             <div class="number-input sm-number-input lg-number-input">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="10" name="quantity" value="10" type="number">
+                                                <input class="quantity" min="10" name="ca" value="{{ $personagem['deslocamento'] }}" type="number">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>                              
                                         </figcaption>
@@ -258,7 +258,7 @@
                                         <div class="circle">
                                             <div class="number-input sm-number-input lg-number-input">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="0" name="quantity" value="0" type="number">
+                                                <input class="quantity" min="0" name="iniciativa" value="0" type="number">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>
                                         </div> 
@@ -273,7 +273,7 @@
                                         <div class="circle">
                                             <div class="number-input sm-number-input lg-number-input">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="1" name="quantity" value="9" type="number">
+                                                <input class="quantity" min="1" name="deslocamento" value="{{ $personagem['deslocamento'] }}" type="number">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>
                                         </div> 
@@ -287,7 +287,7 @@
                                         <div class="circle">
                                             <div class="number-input sm-number-input lg-number-input">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="0" name="quantity" value="0" type="number">
+                                                <input class="quantity" min="0" name="insp" value="{{ $personagem['inspiracao'] }}" type="number">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>
                                         </div> 
@@ -414,7 +414,7 @@
                                 <nav class="col-12">
                                     <div class="others">
                                         <h6>Outras Proficiências e Idiomas</h6>
-                                        <textarea name="others" class="notes"></textarea>
+                                        <textarea name="outras_prof" class="notes" maxlength="300">{{ $personagem['outras_prof'] }}</textarea>
                                     </div>
                                 </nav>
                             </div>
@@ -424,12 +424,12 @@
                         <nav class="col-3">
                             {{-- TO DO --}}
                             <div class="row">
-                                <button type="button" class="accordion second-accordion">Outras proficiências e idiomas</button>
+                                <button type="button" class="accordion second-accordion">Outras Características e Talentos</button>
                                 <div class="panel second-panel">
-                                    <textarea name="others" class="notes"></textarea>
+                                    <textarea name="caract_e_talentos" class="notes" maxlength="300">{{ $personagem['caract_e_talentos'] }}</textarea>
                                 </div>
 
-                                <button type="button" class="accordion second-accordion">Equipamento</button>
+                                <button type="button" class="accordion second-accordion" maxlength="300">Equipamento</button>
                                 <div class="panel second-panel">
                                     <textarea name="others" class="notes"></textarea>
                                     {{-- @for($i = 0; $i < count($racas); $i++)
@@ -467,27 +467,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 
         <script>
-            $(function(){
-                $('form[name="form-ficha"]').submit(function(event){
-                    event.preventDefault();
-
-                    $.ajax({
-                        url: "{{ route('ficha.response', $personagem['id']) }}",
-                        type: 'post',
-                        data: $(this).serialize(),
-                        dataType: 'json',
-                        success: function(response){
-                            if(response.success === true){
-                                window.location.href = '{{ route('ficha.update', $personagem['id']) }}';
-                                //console.log(response);                                
-                            }else{
-                                console.log("erro");
-                            }
-                        }
-                    });
-                    
-                });
-            });
+            
 
         </script>
         

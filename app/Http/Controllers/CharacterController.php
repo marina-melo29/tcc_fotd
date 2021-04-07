@@ -33,37 +33,56 @@ class CharacterController extends Controller
             "nivel"             => 1,
             "percepcao_passiva" => 0,
             "iniciativa"        => 0,
-            "bonus_proficiencia"=> 2
+            "bonus_proficiencia"=> 2,
+            "pontos_de_vida"    => 20,
+            "inspiracao"        => 0
         ];
 
          $create = Tb_Personagem::create($dataCharacter);
         return redirect()->route('user.get.ficha', ['id_personagem' => $create->id]);
     }
 
-    public function update(){
-        $character_id       = route()->parameters['id_personagem'];
+    public function update(Request $request){
+        $character_id       = request()->route()->parameters['id_personagem'];
         $character          = Tb_Personagem::where('id',$character_id)->first(); 
-        $raca               = Tb_Racas::where('id',$request->raca)->first();
+
         $character_new_data = [
-            "nm_personagem" => $request->character_name,
-            "id_raca"       => $raca->id_raca
+            "nm_personagem"         => $request->nome_personagem,
+            "id_raca"               => $request->raca,
+            "id_classe"             => $request->classe,
+            "id_alinhamento"        => $request->alinhamento,
+            "percepcao_passiva"     => $request->pp,
+            "bonus_proficiencia"    => $request->bp,
+            "nivel"                 => $request->nivel,
+            "iniciativa"            => $request->iniciativa,
+            "pontos_de_vida"        => $request->vida,
+            "pontos_de_vida_atual"  => $request->vida_atual,
+            "classe_de_armadura"    => $request->ca,
+            "deslocamento"          => $request->deslocamento,
+            "inspiracao"            => $request->insp,
+            "outras_proficiencias"  => $request->outras_prof,
+
+
         ];
+        
         $character->update($character_new_data);
         return redirect()->route('historico');
     }
 
     public function response(Request $request)
     {   
-        if($request->character_name != 'Brienne'){
-            $teste['success'] = false;
+        if($request->character_name != ''){
+            $teste['success'] = true;
             $teste['message'] = "Sim";
 
             echo json_encode($teste);
+            return;
         }else{ 
-            $teste['success'] = true;
+            $teste['success'] = false;
             $teste['message'] = "sim";
 
             echo json_encode($teste);
+            return;
         }        
         
     }
@@ -97,8 +116,11 @@ class CharacterController extends Controller
         $character["bp"]          = $character_data->bonus_proficiencia; 
         $character["alinhamento"] = Tb_Alinhamentos::where('id',$character_data->id_alinhamento)->first();;
         $character["antecedente"] = $character_data->nm_antecedente;
-        $character["iniciativa"]  = $character_data->iniciativa;     
-           
+        $character["iniciativa"]  = $character_data->iniciativa;  
+        $character["deslocamento"]= $character_data->deslocamento;   
+        $character["outras_prof"] = $character_data->outras_proficiencias;
+        $character["inspiracao"]  = $character_data->inspiracao;
+        $character["caract_e_talentos"]  = $character_data->outras_caracteristicas; 
 
 
         $talents   = Tb_Personagem_Talentos::where('id_personagem',$character_id)->get();

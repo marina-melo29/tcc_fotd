@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth'], function(){
     //Route::get('/historico/ficha/',                       [CharacterController::class,'ficha'])            ->name('ficha.ficha');
     Route::post('/historico/novo',                          [CharacterController::class,'create'])           ->name('ficha.new');
     Route::post('/historico/ficha/{id_personagem}/response',[CharacterController::class,'response'])         ->name('ficha.response');
-    Route::get('/historico/ficha/{id_personagem}/update',   [CharacterController::class,'update'])           ->name('ficha.update');
+    Route::post('/historico/ficha/{id_personagem}/update',   [CharacterController::class,'update'])          ->name('ficha.update');
     Route::post('/historico/ficha/{id_personagem}/delete',  [CharacterHistoricController::class,'destroy'])  ->name('ficha.delete');
     Route::get('/magias',                                   [MagicsController::class,'index'])               ->name('magias.get');
     Route::post('/magias/response',                         [MagicsController::class,'response'])            ->name('magias.response');
