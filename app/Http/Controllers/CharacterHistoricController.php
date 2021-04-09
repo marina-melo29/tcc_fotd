@@ -22,8 +22,14 @@ class CharacterHistoricController extends Controller
 
     public function destroy(){
         $character_id  = request()->route()->parameters['id_personagem'];
-        $characters_tb = Tb_Personagem::where('id',$character_id)->first(); 
-        $characters_tb->delete();
+         
+        try{
+            $characters_tb = Tb_Personagem::where('id',$character_id)->first();
+            $characters_tb->delete();
+        }
+        catch(Throwable $t){
+            echo "<script>console.log($t)</script>";
+        }
         return redirect()->route('historico');
         
     }

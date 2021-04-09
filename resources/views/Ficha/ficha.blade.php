@@ -137,14 +137,14 @@
                     </div>
 
                     <div class="row justify-content-start my-2">
-                        {{-- PRIMEIRA COLUNA --}}
+                        {{-- PRIMEIRA COLUNA - Atributos--}}
                         <nav class="col-1 ml-2 mr-4">
                             {{-- Força --}}
                             <div class="attribute">
                                 <h5>Força</h5>
                                 <div class="number-input sm-number-input lg-number-input">
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_forca"></button>
-                                    <input class="quantity" id="quant-forca" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['forca'] !=null) ? $personagem['atributos']['forca'] : 8 }}" type="number" readonly>
+                                    <input class="quantity" id="quant-forca" min="8" max="20" name="forca" value="{{ ($personagem['atributos']['forca'] !=null) ? $personagem['atributos']['forca'] : 8 }}" type="number" readonly>
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_forca"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_forca"></p></div>
@@ -154,7 +154,7 @@
                                 <h5>Const</h5>
                                 <div class="number-input sm-number-input lg-number-input">
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_const"></button>
-                                    <input class="quantity" id="quant-const" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['constituicao'] !=null) ? $personagem['atributos']['constituicao'] : 8 }}" type="number" readonly>
+                                    <input class="quantity" id="quant-const" min="8" max="20" name="const" value="{{ ($personagem['atributos']['constituicao'] !=null) ? $personagem['atributos']['constituicao'] : 8 }}" type="number" readonly>
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_const"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_const"></p></div>
@@ -164,7 +164,7 @@
                                 <h5>Dest</h5>
                                 <div class="number-input sm-number-input lg-number-input">
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_dest"></button>
-                                    <input class="quantity" id="quant-dest" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['destreza'] !=null) ? $personagem['atributos']['destreza'] : 8 }}" type="number" readonly>
+                                    <input class="quantity" id="quant-dest" min="8" max="20" name="dest" value="{{ ($personagem['atributos']['destreza'] !=null) ? $personagem['atributos']['destreza'] : 8 }}" type="number" readonly>
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_dest"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_dest"></p></div>
@@ -174,7 +174,7 @@
                                 <h5>Int</h5>
                                 <div class="number-input sm-number-input lg-number-input">
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_int"></button>
-                                    <input class="quantity" id="quant-int" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['inteligencia'] !=null) ? $personagem['atributos']['inteligencia'] : 8 }}" type="number" readonly>
+                                    <input class="quantity" id="quant-int" min="8" max="20" name="int" value="{{ ($personagem['atributos']['inteligencia'] !=null) ? $personagem['atributos']['inteligencia'] : 8 }}" type="number" readonly>
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_int"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_int"></p></div>
@@ -184,7 +184,7 @@
                                 <h5>Sab</h5>
                                 <div class="number-input sm-number-input lg-number-input">
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_sab"></button>
-                                    <input class="quantity" id="quant-sab" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['sabedoria'] !=null) ? $personagem['atributos']['sabedoria'] : 8 }}" type="number" readonly>
+                                    <input class="quantity" id="quant-sab" min="8" max="20" name="sab" value="{{ ($personagem['atributos']['sabedoria'] !=null) ? $personagem['atributos']['sabedoria'] : 8 }}" type="number" readonly>
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_sab"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_sab"></p></div>
@@ -194,7 +194,7 @@
                                 <h5>Car</h5>
                                 <div class="number-input sm-number-input lg-number-input">
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_car"></button>
-                                    <input class="quantity" id="quant-car" min="8" max="20" name="quantity" value="{{ ($personagem['atributos']['carisma'] !=null) ? $personagem['atributos']['carisma'] : 8 }}" type="number" readonly>
+                                    <input class="quantity" id="quant-car" min="8" max="20" name="car" value="{{ ($personagem['atributos']['carisma'] !=null) ? $personagem['atributos']['carisma'] : 8 }}" type="number" readonly>
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_car"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_car"></p></div>
@@ -404,7 +404,7 @@
                             <div class="row mb-4">
                                 <nav class="col-12">
                                     <div class="big-circle">
-
+                                        
                                     </div>
                                 </nav>
                             </div>
@@ -431,7 +431,7 @@
 
                                 <button type="button" class="accordion second-accordion" maxlength="300">Equipamento</button>
                                 <div class="panel second-panel">
-                                    <textarea name="others" class="notes"></textarea>
+                                    <textarea name="notes" class="notes"></textarea>
                                     {{-- @for($i = 0; $i < count($racas); $i++)
                                         @if ($armadura[$i]->tipo_armadura == $personagem['armadura']->tipo_armadura)
                                             <div class="form-check">

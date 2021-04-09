@@ -26,7 +26,7 @@ class CharacterController extends Controller
     public function create()
     {
         $user_id = Auth::id();
-        $dataCharacter = 
+        $data_Character = 
         [
             "id_usuario"        => $user_id,
             "nm_personagem"     => "Nome do Personagem",
@@ -38,13 +38,30 @@ class CharacterController extends Controller
             "inspiracao"        => 0
         ];
 
-         $create = Tb_Personagem::create($dataCharacter);
+        $create = Tb_Personagem::create($data_Character);
+
+        $data_atributtes =
+        [
+            'id_personagem'         => $create->id,
+            'forca'                 => 17,
+            'destreza'              => 14,
+            'constituicao'          => 18,
+            'inteligencia'          => 11,
+            'sabedoria'             => 11,
+            'carisma'               => 13
+        ];
+
+        $character_expertise = [];
+
+         
+        $create_atributtes = Tb_Atributos::create($data_atributtes);
         return redirect()->route('user.get.ficha', ['id_personagem' => $create->id]);
     }
 
     public function update(Request $request){
-        $character_id       = request()->route()->parameters['id_personagem'];
-        $character          = Tb_Personagem::where('id',$character_id)->first(); 
+        $character_id           = request()->route()->parameters['id_personagem'];
+        $character              = Tb_Personagem::where('id',$character_id)->first(); 
+        $character_atributtes   = Tb_Atributos::where('id_personagem',$character_id)->first();
 
         $character_new_data = [
             "nm_personagem"         => $request->nome_personagem,
@@ -61,11 +78,21 @@ class CharacterController extends Controller
             "deslocamento"          => $request->deslocamento,
             "inspiracao"            => $request->insp,
             "outras_proficiencias"  => $request->outras_prof,
-
-
         ];
+
+        $character_atributtes_new_data = [
+            'forca'                 => $request->forca,
+            'destreza'              => $request->dest,
+            'constituicao'          => $request->const,
+            'inteligencia'          => $request->int,
+            'sabedoria'             => $request->sab,
+            'carisma'               => $request->car
+        ];
+
+        $character_expertise = [];        
         
         $character->update($character_new_data);
+        $character_atributtes->update($character_atributtes_new_data);
         return redirect()->route('historico');
     }
 
