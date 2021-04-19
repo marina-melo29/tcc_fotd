@@ -300,92 +300,38 @@
                             <div class="row">
                                 <nav class="col-8">                                                           
                                     <div class="pericias">
-                                        <h6>Perícias</h6>                                    
-                                            <button type="button" class="accordion first-accordion">
-                                                <p>Força
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                                        <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                                                    </svg>
-                                                </p>
-                                                
-                                            </button>
-                                            <div class="panel first-panel">
-                                                <input type="checkbox"   id="atletismo"       name="atletismo"       value="atletismo">
-                                                <label for="atletismo">Atletismo</label>
-                                            </div>                                      
-                                            <button type="button" class="accordion first-accordion">
-                                                <p>Destreza
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                                        <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                                                    </svg>    
-                                                </p>
-                                            </button>
-                                            <div class="panel first-panel">
-                                                <input type="checkbox"   id="acrobacia"       name="acrobacia"       value="acrobacia">
-                                                <label for="acrobacia">Acrobacia</label>
-                                                <input type="checkbox"   id="furtividade"     name="furtividade"     value="furtividade">
-                                                <label for="furtividade">Furtividade</label>
-                                                <input type="checkbox"   id="prestidigitacao" name="prestidigitacao" value="prestidigitacao">
-                                                <label for="prestidigitacao">Prestidigitação</label>
-                                            </div>
-                                            
-                                            <button type="button" class="accordion first-accordion">
-                                                <p>Inteligência
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                                        <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                                                    </svg>    
-                                                </p>
-                                            </button> 
-                                            <div class="panel first-panel">                                       
-                                                <input type="checkbox"   id="arcanismo"       name="arcanismo"       value="arcanismo">
-                                                <label for="arcanismo">Arcanismo</label>
-                                                <input type="checkbox"   id="historia"        name="historia"        value="historia">
-                                                <label for="historia">História</label>
-                                                <input type="checkbox"   id="investigação"    name="investigação"    value="investigacao">
-                                                <label for="investigação">Investigação</label>
-                                                <input type="checkbox"   id="natureza"        name="natureza"        value="natureza">
-                                                <label for="natureza">Natureza</label>
-                                                <input type="checkbox"   id="religiao"        name="religiao"        value="religiao">
-                                                <label for="religiao">Religião</label>
-                                            </div> 
+                                        <h6>Perícias</h6> 
+                                            @for ($i = 0; $i < count($pericias); $i++)                
+                                                <button type="button" class="accordion first-accordion">
+                                                            
+                                                    <p> {{ $titulo_pericias[$i]->atributo_equivalente }}
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                                                            <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                                        </svg>
+                                                    </p>                                                   
+                                                                                                    
+                                                </button>                   
+                                                <div class="panel first-panel">
+                                                    
+                                                        @for ($j = 0; $j < count($pericias[$i]); $j++)
+                                                            @foreach ($pericias_atuais as $pericia_atual)
+                                                                
+                                                                @if ($pericias[$i][$j]->id_pericia == $pericia_atual->id_pericia)
 
-                                            <button type="button" class="accordion first-accordion">
-                                                <p>Sabedoria
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                                        <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                                                    </svg>
-                                                </p>
-                                            </button>
-                                            <div class="panel first-panel"> 
-                                                <input type="checkbox" id="intuicao"          name="intuicao"        value="intuicao">
-                                                <label for="intuicao">Intuição</label>
-                                                <input type="checkbox" id="lidaranimais"      name="lidaranimais"    value="lidaranimais">
-                                                <label for="lidaranimais">Lidar Com Animais</label>
-                                                <input type="checkbox" id="medicina"          name="medicina"        value="medicina">
-                                                <label for="medicina">Medicina</label>
-                                                <input type="checkbox" id="percepcao"         name="percepcao"       value="percepcao">
-                                                <label for="percepcao">Percepcao</label>
-                                                <input type="checkbox" id="sobrevivencia"     name="sobrevivencia"   value="sobrevivencia">
-                                                <label for="sobrevivencia">Sobrevivência</label>
-                                            </div> 
-
-                                            <button type="button" class="accordion first-accordion">
-                                                <p>Carisma
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-                                                        <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                                                    </svg>
-                                                </p>
-                                            </button>
-                                            <div class="panel first-panel">
-                                                <input type="checkbox" id="atuacao"           name="atuacao"         value="atuacao">
-                                                <label for="atuacao">Atuacão</label>
-                                                <input type="checkbox" id="blefar"            name="blefar"          value="blefar">
-                                                <label for="blefar">Blefar</label>
-                                                <input type="checkbox" id="intimidacao"       name="intimidacao"     value="intimidacao">
-                                                <label for="intimidacao">Intimidacão</label>
-                                                <input type="checkbox" id="persuasao"         name="persuasao"       value="persuasao">
-                                                <label for="persuasao">Persuasao</label>
-                                            </div>                                                                        
+                                                                    <input type="checkbox" checked  id="{{ $pericias[$i][$j]->nm_pericia }}"       name="pericias[]"       value={{ $pericias[$i][$j]->id_pericia }}>
+                                                                    <label for="{{ $pericias[$i][$j]->nm_pericia }}">{{ $pericias[$i][$j]->nm_pericia }}</label>
+                                                                    @break
+                                                                                                                                   
+                                                                @endif                                                          
+                                                                
+                                                            @endforeach  
+                                                            <input type="checkbox"   id="{{ $pericias[$i][$j]->nm_pericia }}"       name="pericias[]"       value={{ $pericias[$i][$j]->id_pericia }}>
+                                                            <label for="{{ $pericias[$i][$j]->nm_pericia }}">{{ $pericias[$i][$j]->nm_pericia }}</label>
+                                                                                                                  
+                                                        @endfor                                                
+                                                        
+                                                </div>     
+                                            @endfor                                                                                                                                            
                                     </div>
                                 </nav>
 

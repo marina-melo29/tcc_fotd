@@ -8,6 +8,8 @@ use App\Models\Tb_Personagem;
 use App\Models\Tb_Racas;
 use App\Models\Tb_Classe;
 use App\Models\User;
+use App\Models\Tb_Personagem_Talentos;
+use App\Models\Tb_Atributos;
 use Illuminate\Http\Request;
 
 class CharacterHistoricController extends Controller
@@ -24,8 +26,19 @@ class CharacterHistoricController extends Controller
         $character_id  = request()->route()->parameters['id_personagem'];
          
         try{
-            $characters_tb = Tb_Personagem::where('id',$character_id)->first();
-            $characters_tb->delete();
+            if(Tb_Personagem::where('id',$character_id)->first()){                
+                if (Tb_Atributos::Where('id_personagem',$character_id)->first()) {
+                    Tb_Atributos::Where('id_personagem',$character_id)->first()->delete();
+                }
+                if(Tb_Personagem_Talentos::where('id',$character_id)->first()){
+                    Tb_Personagem_Talentos::where('id',$character_id)->first()->delete();
+                }
+                Tb_Personagem::where('id',$character_id)->first()->delete();
+                
+            }
+            else{
+                echo "<script>alert('oi')</script>";
+            } 
         }
         catch(Throwable $t){
             echo "<script>console.log($t)</script>";

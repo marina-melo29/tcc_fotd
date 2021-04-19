@@ -13,6 +13,8 @@ use App\Models\Tb_Alinhamentos;
 use App\Models\Tb_Armaduras;
 use App\Models\User;
 use App\Models\Tb_Personagem_talentos;
+use App\Models\Tb_Pericias;
+use App\Models\Tb_Personagem_Pericias;
 
 class CharacterController extends Controller
 {
@@ -35,7 +37,8 @@ class CharacterController extends Controller
             "iniciativa"        => 0,
             "bonus_proficiencia"=> 2,
             "pontos_de_vida"    => 20,
-            "inspiracao"        => 0
+            "inspiracao"        => 0,
+            "classe_de_armadura"=> 12
         ];
 
         $create = Tb_Personagem::create($data_Character);
@@ -62,7 +65,29 @@ class CharacterController extends Controller
         $character_id           = request()->route()->parameters['id_personagem'];
         $character              = Tb_Personagem::where('id',$character_id)->first(); 
         $character_atributtes   = Tb_Atributos::where('id_personagem',$character_id)->first();
+        $character_expertises   = Tb_Personagem_Pericias::where('id_personagem',$character_id)->get();
+        $expertises_new_data = [];
 
+        foreach ($request->pericias as $value) {
+            //dd($value);
+            $expertises_new_data = [
+                'id_personagem' => $character_id,
+                'id_pericia'    => $value
+            ];
+
+            if($character_expertises)
+            {   
+                //dd("nãoexiste");
+                
+                Tb_Personagem_Pericias::create($expertises_new_data);
+                        
+            }
+            else{
+                Tb_Personagem_Pericias::whereIn('id_personagem',$character_id)->delete();
+                Tb_Personagem_Pericias::create($expertises_new_data);
+            }
+        }              
+               
         $character_new_data = [
             "nm_personagem"         => $request->nome_personagem,
             "id_raca"               => $request->raca,
@@ -88,8 +113,7 @@ class CharacterController extends Controller
             'sabedoria'             => $request->sab,
             'carisma'               => $request->car
         ];
-
-        $character_expertise = [];        
+        
         
         $character->update($character_new_data);
         $character_atributtes->update($character_atributtes_new_data);
@@ -117,13 +141,20 @@ class CharacterController extends Controller
     public function getEditor()
     {
         $character_id = request()->route()->parameters['id_personagem'];
-        $racas = Tb_Racas::all();
-        $classes = Tb_Classe::all();
-        $user_id = Auth::id();
-        $align   = Tb_Alinhamentos::all();
+        $racas      = Tb_Racas::all();
+        $classes    = Tb_Classe::all();
+        $user_id    = Auth::id();
+        $align      = Tb_Alinhamentos::all();
 
+        $expertises_title = Tb_Pericias::select('atributo_equivalente')->groupBy('atributo_equivalente')->get();        
+        $expertises       = $this->getExpertises($expertises_title);      
+        
+        $class  = new Tb_Personagem_Pericias();
+        $current_expertises = $class->getCharactersExpertices($character_id);
+        
         $character = $this->ShowCharacterDataById($user_id,$character_id);  
-        return view('ficha/ficha',["personagem"=>$character, "racas"=>$racas, "classes"=>$classes,"alinhamento"=>$align]);    
+        
+        return view('ficha/ficha',["pericias_atuais"=>$current_expertises,"titulo_pericias"=>$expertises_title,"pericias"=>$expertises,"personagem"=>$character, "racas"=>$racas, "classes"=>$classes,"alinhamento"=>$align]);    
     }
 
 
@@ -168,6 +199,17 @@ class CharacterController extends Controller
         }                  
 
        return $character;
+    }
+
+
+    public function getExpertises($expertises_title){
+        $expertises = [];
+
+        for ($i = 0; $i < count($expertises_title); $i++) { 
+            $expertises[]  = Tb_Pericias::Where('atributo_equivalente',$expertises_title[$i]->atributo_equivalente)->get();
+        }               
+
+        return $expertises;
     }
 
 
