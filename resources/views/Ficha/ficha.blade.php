@@ -314,20 +314,19 @@
                                                 <div class="panel first-panel">
                                                     
                                                         @for ($j = 0; $j < count($pericias[$i]); $j++)
-                                                            @foreach ($pericias_atuais as $pericia_atual)
-                                                                
-                                                                @if ($pericias[$i][$j]->id_pericia == $pericia_atual->id_pericia)
+                                                            @if ($pericias[$i][$j]['checked'])
 
-                                                                    <input type="checkbox" checked  id="{{ $pericias[$i][$j]->nm_pericia }}"       name="pericias[]"       value={{ $pericias[$i][$j]->id_pericia }}>
-                                                                    <label for="{{ $pericias[$i][$j]->nm_pericia }}">{{ $pericias[$i][$j]->nm_pericia }}</label>
-                                                                    @break
-                                                                                                                                   
-                                                                @endif                                                          
-                                                                
-                                                            @endforeach  
-                                                            <input type="checkbox"   id="{{ $pericias[$i][$j]->nm_pericia }}"       name="pericias[]"       value={{ $pericias[$i][$j]->id_pericia }}>
-                                                            <label for="{{ $pericias[$i][$j]->nm_pericia }}">{{ $pericias[$i][$j]->nm_pericia }}</label>
-                                                                                                                  
+                                                                <input type="checkbox" checked  id="{{ $pericias[$i][$j]['nm_pericia'] }}" name="pericias[]"      value={{ $pericias[$i][$j]["id_pericia"] }}>
+                                                                <label for="{{ $pericias[$i][$j]['nm_pericia'] }}">{{ $pericias[$i][$j]['nm_pericia'] }}</label>
+                                                            
+                                                            @else
+
+                                                                <input type="checkbox"   id="{{ $pericias[$i][$j]['nm_pericia'] }}"       name="pericias[]"       value={{ $pericias[$i][$j]["id_pericia"] }}>
+                                                                <label for="{{ $pericias[$i][$j]['nm_pericia'] }}">{{ $pericias[$i][$j]['nm_pericia'] }}</label>
+                                                            
+                                                            @endif
+                                                            
+                                                            
                                                         @endfor                                                
                                                         
                                                 </div>     

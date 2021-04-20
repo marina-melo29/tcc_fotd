@@ -68,25 +68,32 @@ class CharacterController extends Controller
         $character_expertises   = Tb_Personagem_Pericias::where('id_personagem',$character_id)->get();
         $expertises_new_data = [];
 
-        foreach ($request->pericias as $value) {
-            //dd($value);
-            $expertises_new_data = [
-                'id_personagem' => $character_id,
-                'id_pericia'    => $value
-            ];
+        if($request->pericias != null)
+        {
+            foreach ($request->pericias as $value) {
+                //dd($value);
+                $expertises_new_data = [
+                    'id_personagem' => $character_id,
+                    'id_pericia'    => $value
+                ];
 
-            if($character_expertises)
-            {   
-                //dd("nãoexiste");
-                
-                Tb_Personagem_Pericias::create($expertises_new_data);
-                        
+                if(count($character_expertises) == 0)
+                {   
+                                    
+                    Tb_Personagem_Pericias::create($expertises_new_data);
+                            
+                }
+                else{
+                    Tb_Personagem_Pericias::where('id_personagem',$character_id)->delete();
+                    Tb_Personagem_Pericias::create($expertises_new_data);
+                }
             }
-            else{
-                Tb_Personagem_Pericias::whereIn('id_personagem',$character_id)->delete();
-                Tb_Personagem_Pericias::create($expertises_new_data);
-            }
-        }              
+        }
+        else 
+        {
+            Tb_Personagem_Pericias::where('id_personagem',$character_id)->delete();
+        }
+                 
                
         $character_new_data = [
             "nm_personagem"         => $request->nome_personagem,
@@ -147,14 +154,12 @@ class CharacterController extends Controller
         $align      = Tb_Alinhamentos::all();
 
         $expertises_title = Tb_Pericias::select('atributo_equivalente')->groupBy('atributo_equivalente')->get();        
-        $expertises       = $this->getExpertises($expertises_title);      
+        $expertises       = $this->getExpertises($expertises_title,$character_id); #Pega Todas as perícias e aglutina num array pelo título do atributo equivalente dela   
         
-        $class  = new Tb_Personagem_Pericias();
-        $current_expertises = $class->getCharactersExpertices($character_id);
         
         $character = $this->ShowCharacterDataById($user_id,$character_id);  
         
-        return view('ficha/ficha',["pericias_atuais"=>$current_expertises,"titulo_pericias"=>$expertises_title,"pericias"=>$expertises,"personagem"=>$character, "racas"=>$racas, "classes"=>$classes,"alinhamento"=>$align]);    
+        return view('ficha/ficha',["titulo_pericias"=>$expertises_title,"pericias"=>$expertises,"personagem"=>$character, "racas"=>$racas, "classes"=>$classes,"alinhamento"=>$align]);    
     }
 
 
@@ -202,14 +207,59 @@ class CharacterController extends Controller
     }
 
 
-    public function getExpertises($expertises_title){
+    public function getExpertises($expertises_title,$character_id){
         $expertises = [];
+        $show = [];
 
-        for ($i = 0; $i < count($expertises_title); $i++) { 
-            $expertises[]  = Tb_Pericias::Where('atributo_equivalente',$expertises_title[$i]->atributo_equivalente)->get();
-        }               
+        $class  = new Tb_Personagem_Pericias();
+        $current_expertises = $class->getCharactersExpertices($character_id); #Pega as perícias atuais
 
-        return $expertises;
+
+        for ($i = 0; $i < count($expertises_title); $i++) { # Coloca cada grupo de perícias dentro da posição de seu atributo equivalente
+            $expertises[$i] = Tb_Pericias::Where('atributo_equivalente',$expertises_title[$i]->atributo_equivalente)->get();
+            
+            if(count($current_expertises) != 0)
+            { #Verifica se há perícias sendo utilizadas
+                
+                for ($j=0; $j < count($expertises[$i]); $j++) 
+                { #Passa por cada perícia dentro de cada grupo
+                    foreach ($current_expertises as $current) 
+                    {
+                        if ($expertises[$i][$j]->id_pericia == $current->id_pericia) #Verifica se a perícia atual do loop corresponde à uma das utilizadas
+                        { 
+                            
+                            $show[$i][$j] = [
+                                "id_pericia"    => $expertises[$i][$j]->id_pericia,
+                                "nm_pericia"    => $expertises[$i][$j]->nm_pericia,
+                                "checked"       =>true
+                            ];
+                            break;
+
+                        }
+                        else
+                        {
+                            
+                            $show[$i][$j] = [
+                                "id_pericia"    => $expertises[$i][$j]->id_pericia,
+                                "nm_pericia"    => $expertises[$i][$j]->nm_pericia,
+                                "checked"       =>false
+                            ];
+
+                        }
+
+                    }
+
+                }
+
+            }
+            else 
+            {
+                $show[$i]  = Tb_Pericias::Where('atributo_equivalente',$expertises_title[$i]->atributo_equivalente)->get();
+            }
+
+        }       
+        
+        return $show;
     }
 
 
