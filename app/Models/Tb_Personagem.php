@@ -25,7 +25,8 @@ class Tb_Personagem extends Model
         'classe_de_armadura',
         'inspiracao',
         'outras_proficiencias',
-        'deslocamento'
+        'deslocamento',
+        'outras_caracteristicas'
 
     ];
 

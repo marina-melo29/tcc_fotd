@@ -24,7 +24,7 @@
 
         <div class="container border" id="section">
             <div class="container-fluid" id="container-cabecalho">          
-                <form name="form-ficha" action="{{ route('ficha.update', $personagem['id']) }}" method="POST" class="form-ficha" autocomplete="off">  
+                <form name="form-ficha" {{-- action="{{ route('ficha.update', $personagem['id']) }}" --}} method="POST" class="form-ficha" autocomplete="off">  
                     @csrf
                     <div class="row pt-2 mt-3">
                         {{-- Nome do Personagem --}}
@@ -95,11 +95,12 @@
                         </nav>
 
                         {{-- Antecedente TO DO --}}
-                        <nav class="col-1 mr-4">
-                            <h6>Antecedente</h6>
+                        <nav class="col-2 mr-4">
+                            {{-- <h6>Antecedente</h6>
                             <Select name="antecedente" class="selectpicker">
                                 <option value="Eremita">Eremita</option>
-                            </Select>
+                            </Select> --}}
+                            <input type="submit" value="Salvar" name="save" id="submit" class="btn btn-danger">
                         </nav>
 
                         {{-- PP --}}
@@ -203,7 +204,7 @@
                         </nav>
 
                         {{-- SEGUNDA COLUNA --}}
-                        <nav class="col-4">
+                        <nav class="col-4 mr-3">
                             {{-- Info basic --}}
                             <div class="row">
                                 {{-- Vida --}}
@@ -244,7 +245,7 @@
                                         <figcaption>                                
                                             <div class="number-input sm-number-input lg-number-input">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="10" name="ca" value="{{ $personagem['deslocamento'] }}" type="number">
+                                                <input class="quantity" min="10" name="ca" value="{{ $personagem['ca'] }}" type="number">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>                              
                                         </figcaption>
@@ -258,7 +259,7 @@
                                         <div class="circle">
                                             <div class="number-input sm-number-input lg-number-input">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                                <input class="quantity" min="0" name="iniciativa" value="0" type="number">
+                                                <input class="quantity" min="0" name="iniciativa" value="{{ $personagem['iniciativa'] }}" type="number">
                                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                                             </div>
                                         </div> 
@@ -296,9 +297,9 @@
                                 
                             </div>
 
-                            {{-- Perícias --}}
+                            {{-- Perícias e Outros--}}
                             <div class="row">
-                                <nav class="col-8">                                                           
+                                <nav class="col-7">                                                           
                                     <div class="pericias">
                                         <h6>Perícias</h6> 
                                             @for ($i = 0; $i < count($pericias); $i++)                
@@ -334,25 +335,27 @@
                                     </div>
                                 </nav>
 
-                                <nav class="col-3">
+                                
+                                {{-- <nav class="col-3">
                                     <div class="moedas">
                                         <h6></h6>
                                         
                                     </div>
-                                </nav>
+                                </nav> --}}
                             </div>                                               
                         </nav>
+                        
 
                         {{-- TERCEIRA COLUNA --}}
                         <nav class="col-3">
                             {{-- img jogador --}}
-                            <div class="row mb-4">
+                            {{-- <div class="row mb-4">
                                 <nav class="col-12">
                                     <div class="big-circle">
                                         
                                     </div>
                                 </nav>
-                            </div>
+                            </div> --}}
 
                             {{-- Outras Prof. e Idiomas --}}
                             <div class="row">
@@ -366,6 +369,7 @@
                         </nav>
 
                         {{-- QUARTA COLUNA --}}
+                        {{-- TO do --}}
                         <nav class="col-3">
                             {{-- TO DO --}}
                             <div class="row">
@@ -399,9 +403,9 @@
                                
                             </div>
                         </nav>
+                       
                     </div>
-
-                    <input type="submit" value="Salvar" name="save" id="submit" class="btn btn-danger">
+                    
                 </form>  
             </div>
         </div>
@@ -412,7 +416,33 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 
         <script>
-            
+            $(function(){
+                $('form[name="form-ficha"]').submit(function(event){
+                    event.preventDefault();   
+                     
+                    $.ajax({
+                        url: "{{ route('ficha.response', $personagem['id']) }}",
+                        type: 'post',
+                        data: $(this).serialize(),
+                        dataType: 'json',
+                        success: function(response){
+                            if(response.success === true){ 
+                                document.getElementById("submit").style.backgroundColor = "grey";
+                                document.getElementById("submit").style.borderColor     = "grey"; 
+                                document.getElementById("submit").style.color           = "#f8fafc";                              
+                                //console.log(response);                                
+                            }else{
+                                console.log("erro");
+                            }
+                        }
+                    });
+                });
+
+                $('form[name="form-ficha"]').on('change',function(){
+                    document.getElementById("submit").style.backgroundColor = "#b22222e3";
+                    document.getElementById("submit").style.borderColor     = "#b22222e3";
+                });
+            });
 
         </script>
         

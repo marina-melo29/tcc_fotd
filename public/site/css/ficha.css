@@ -561,6 +561,16 @@ input[type="number"] {
   { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
     .number-input.sm-number-input.safari_only button:before, 
     .number-input.sm-number-input.safari_only button:after {
-      margin-top: -.rem;
+      margin-top: -rem;
     }
   }}
+
+  /* Submit */
+  
+  #submit{
+    position: relative;
+    left: 51%;    
+    top:-25px;
+    width:90%;
+    max-height:100%;
+  }

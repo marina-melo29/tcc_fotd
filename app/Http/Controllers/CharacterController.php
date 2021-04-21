@@ -61,7 +61,7 @@ class CharacterController extends Controller
         return redirect()->route('user.get.ficha', ['id_personagem' => $create->id]);
     }
 
-    public function update(Request $request){
+    public function update($request){
         $character_id           = request()->route()->parameters['id_personagem'];
         $character              = Tb_Personagem::where('id',$character_id)->first(); 
         $character_atributtes   = Tb_Atributos::where('id_personagem',$character_id)->first();
@@ -110,6 +110,7 @@ class CharacterController extends Controller
             "deslocamento"          => $request->deslocamento,
             "inspiracao"            => $request->insp,
             "outras_proficiencias"  => $request->outras_prof,
+            "outras_caracteristicas"=> $request->caract_e_talentos,
         ];
 
         $character_atributtes_new_data = [
@@ -129,19 +130,22 @@ class CharacterController extends Controller
 
     public function response(Request $request)
     {   
-        if($request->character_name != ''){
+        try{
+            $update = $this->update($request);
             $teste['success'] = true;
-            $teste['message'] = "Sim";
+            $teste['message'] = "Success";
 
             echo json_encode($teste);
             return;
-        }else{ 
+        }
+        catch(Throwable $t){
             $teste['success'] = false;
-            $teste['message'] = "sim";
+            $teste['message'] = $t;
 
             echo json_encode($teste);
             return;
         }        
+                       
         
     }
 
@@ -183,6 +187,7 @@ class CharacterController extends Controller
         $character["deslocamento"]= $character_data->deslocamento;   
         $character["outras_prof"] = $character_data->outras_proficiencias;
         $character["inspiracao"]  = $character_data->inspiracao;
+        $character["ca"]          = $character_data->classe_de_armadura;
         $character["caract_e_talentos"]  = $character_data->outras_caracteristicas; 
 
 
