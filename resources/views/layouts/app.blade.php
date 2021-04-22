@@ -38,6 +38,11 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <!-- Início -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('index') }}">Início</a>
+                        </li>
+
                         <!-- Ficha -->
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('historico') }}">Ficha</a>
