@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Langar&family=Lobster&family=Yellowtail&display=swap');
+
+body{
+    font-family: 'Langar' !important;
+}
+
+.filtro{
+    position:sticky;
+    width: 50%;
+   
+ }
+
+
+.filtro-accordion{
+    background-color: #a12424;
+    color: #f8fafc;
+    padding: 8px;
+    width: 60%;
+    height:auto;
+    border: none;
+    text-align: LEFT;  
+    font-size: 15px;  
+    border-radius:3px;
+}
+
+.accordion {
+    cursor: pointer;
+    transition: 0.5s;
+    outline: none;
+    resize:none;
+  }
+
+.panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    padding-left:2%;
+    padding-top:6px;
+    width:70%;
+}
+
+.Pagination .page-link{
+    background-color: #a12424 !important;
+    color: #f8fafc !important;
+}
+
+.pesquisa{
+  max-width:fit-content;
+}
+
+.pesquisa #pesquisa-magia{
+  outline:none;
+  width:80%;
+  border: 1px solid #dddddd;
+  border-radius:5px;
+}
+
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+.number-input {
+  min-width:70px;
+  max-width:70px;
+  float:right;
+}
+.number-input button {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  
+}
+.number-input button:before,
+.number-input button:after {
+  display: inline-block;
+  position: absolute;
+  content: '';
+  height: 2px;
+  transform: translate(-35%, -200%);
+}
+.number-input button.plus:after {
+  transform: translate(-35%, -200%) rotate(90deg);
+}
+.number-input input[type=number] {
+  text-align: center;
+}
+
+
+.lg-number-input.number-input {
+  border: 2px solid #ddd;
+  width: 70px;
+}
+.lg-number-input.number-input button {
+  outline: none;
+  width:25%;
+  height: 1rem;
+  padding-top: .8rem;
+}
+.lg-number-input.number-input button.minus {
+  padding-left: 5px;
+}
+.lg-number-input.number-input button.plus {
+  padding-left: 2px;
+}
+.lg-number-input.number-input button:before,
+.lg-number-input.number-input button:after {
+  width: 0.7rem;
+  background-color: #212121;
+}
+
+.lg-number-input.number-input input[type=number] {
+  width: 25px;
+  border: solid #ddd;
+  border-width: 0 2px;
+  font-size:15px;
+  height: 1.3rem;
+  font-family:'langar';
+  font-weight: bold;
+  outline: none;
+}

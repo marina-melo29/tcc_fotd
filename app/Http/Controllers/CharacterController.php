@@ -10,9 +10,6 @@ use App\Models\Tb_Racas;
 use App\Models\Tb_Classe;
 use App\Models\Tb_Atributos;
 use App\Models\Tb_Alinhamentos;
-use App\Models\Tb_Armaduras;
-use App\Models\User;
-use App\Models\Tb_Personagem_talentos;
 use App\Models\Tb_Pericias;
 use App\Models\Tb_Personagem_Pericias;
 

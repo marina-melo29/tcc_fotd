@@ -1,3 +1,14 @@
+
+function checkchanges()
+{
+
+}
+
+function savechanges()
+{
+
+}
+
 function Modifier_Calc(attr)
 {
     if(attr == 8 || attr == 9)
@@ -51,38 +62,62 @@ function accordion(){
 
 
 $(document).ready(function(){
-
-    $(".atr_forca").click(function(){
+    
+    $(".atr_forca").ready(function(){        
+        var attr = $("#quant-forca").val();
+        var mod_result = Modifier_Calc(attr);
+        $("#result_forca").text(mod_result);
+    }).click(function(){        
         var attr = $("#quant-forca").val();
         var mod_result = Modifier_Calc(attr);
         $("#result_forca").text(mod_result);
     });
 
-    $(".atr_const").click(function(){
+    $(".atr_const").ready(function(){
+        var attr = $("#quant-const").val();
+        var mod_result = Modifier_Calc(attr);
+        $("#result_const").text(mod_result);
+    }).click(function(){
         var attr = $("#quant-const").val();
         var mod_result = Modifier_Calc(attr);
         $("#result_const").text(mod_result);
     });
 
-    $(".atr_dest").click(function(){
+    $(".atr_dest").ready(function(){
+        var attr = $("#quant-dest").val();
+        var mod_result = Modifier_Calc(attr);
+        $("#result_dest").text(mod_result);
+    }).click(function(){
         var attr = $("#quant-dest").val();
         var mod_result = Modifier_Calc(attr);
         $("#result_dest").text(mod_result);
     });
 
-    $(".atr_int").click(function(){
+    $(".atr_int").ready(function(){
+        var attr = $("#quant-int").val();
+        var mod_result = Modifier_Calc(attr);
+        $("#result_int").text(mod_result);
+    }).click(function(){
         var attr = $("#quant-int").val();
         var mod_result = Modifier_Calc(attr);
         $("#result_int").text(mod_result);
     });
 
-    $(".atr_sab").click(function(){
+    $(".atr_sab").ready(function(){
+        var attr = $("#quant-sab").val();
+        var mod_result = Modifier_Calc(attr);
+        $("#result_sab").text(mod_result);
+    }).click(function(){
         var attr = $("#quant-sab").val();
         var mod_result = Modifier_Calc(attr);
         $("#result_sab").text(mod_result);
     });
 
-    $(".atr_car").click(function(){
+    $(".atr_car").ready(function(){
+        var attr = $("#quant-car").val();
+        var mod_result = Modifier_Calc(attr);
+        $("#result_car").text(mod_result);
+    }).click(function(){
         var attr = $("#quant-car").val();
         var mod_result = Modifier_Calc(attr);
         $("#result_car").text(mod_result);

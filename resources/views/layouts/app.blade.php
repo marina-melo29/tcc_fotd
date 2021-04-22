@@ -18,8 +18,6 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="bootstrap">
-    <link rel="stylesheet" href="node_modules/bootstrap/scss">
 </head>
 <body>
     <div id="app">
@@ -40,27 +38,32 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
+                        <!-- Início -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('index') }}">Início</a>
+                        </li>
+
                         <!-- Ficha -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('ficha') }}">Ficha</a>
+                            <a class="nav-link" href="{{ route('historico') }}">Ficha</a>
                         </li>
 
                         <!-- Magias -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Magias</a>
+                            <a class="nav-link" href="{{ route('magias.get') }}">Magias</a>
                         </li>
 
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Entrar') }}</a>
                                 </li>
                             @endif
                             
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Cadastrar') }}</a>
                                 </li>
                             @endif
                         @else
@@ -94,9 +97,32 @@
 
         <footer class="footer">
             <div class="container">
-                <span class="text-muted">FOOTER</span>
+                <span class="text-muted"></span>
             </div>
+            
         </footer>
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Langar&family=Lobster&family=Yellowtail&display=swap');
+            
+            body{
+                font-family: 'langar';
+            }
+            
+            .text-muted {
+                color: #f8fafc !important;
+            }
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                line-height: 60px;
+                background-color: #a12424;
+                color: #f8fafc !important; 
+                text-align: center;               
+            }
+
+        </style>
     </div>
 </body>
 </html>

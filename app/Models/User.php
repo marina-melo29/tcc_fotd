@@ -10,7 +10,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -45,23 +45,31 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
+
+    public function character(){
+        return $this->hasOne(Tb_Personagem::class,"id_usuario","User");
+    }
+
+
+
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
      * @return mixed
      */
-    public function getJWTIdentifier()
+    /* public function getJWTIdentifier()
     {
         return $this->getKey();
     }
-
+ */
     /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
      * @return array
      */
-    public function getJWTCustomClaims()
+    /* public function getJWTCustomClaims()
     {
         return [];
-    }
+    } */
 } 
