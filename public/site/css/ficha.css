@@ -186,7 +186,7 @@ select{
 
 .attribute .lg-number-input.number-input button {
     outline: none;
-    width:20%;
+    width:28%;
     height: 1rem;
     padding-top: .8rem;
   }
@@ -200,9 +200,9 @@ select{
   }
 
 .attribute .lg-number-input.number-input input[type=number] {
-    max-width: 25px;
+    max-width: 30px;
     padding: .2rem;
-    font-size:20px;
+    font-size:18px;
     background-color:#f8fafc;
     border: none;
     color:#343a40;
@@ -253,15 +253,15 @@ select{
 .basic-info .lg-number-input.number-input button {
     position: relative;
     outline: none;
-    width:13%;
+    width:15%;
     height: 1rem;
     padding-top: .8rem;
   }
 
 .basic-info .lg-number-input.number-input input[type=number] {
-    max-width: 25px;
+    max-width: 40px;
     padding: .2rem;
-    font-size:18px;
+    font-size:17px;
     background-color:transparent;
     border: none;
     color:#343a40;
@@ -561,6 +561,16 @@ input[type="number"] {
   { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
     .number-input.sm-number-input.safari_only button:before, 
     .number-input.sm-number-input.safari_only button:after {
-      margin-top: -.rem;
+      margin-top: -rem;
     }
   }}
+
+  /* Submit */
+  
+  #submit{
+    position: relative;
+    left: 51%;    
+    top:-25px;
+    width:90%;
+    max-height:100%;
+  }
