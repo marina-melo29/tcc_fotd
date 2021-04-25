@@ -1,0 +1,10 @@
+.slider{
+    position:relative;
+    width: 65%;
+    top:-23px;
+   
+}
+
+.carousel-inner img {
+    height: auto;
+}

@@ -18,5 +18,6 @@ class InitController extends Controller
         return view('inicio');
     }
 
+ 
 
 }

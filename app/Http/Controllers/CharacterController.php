@@ -12,6 +12,7 @@ use App\Models\Tb_Atributos;
 use App\Models\Tb_Alinhamentos;
 use App\Models\Tb_Pericias;
 use App\Models\Tb_Personagem_Pericias;
+use App\Models\Tb_Personagem_Talentos;
 
 class CharacterController extends Controller
 {
