@@ -24,7 +24,7 @@
 
         <div class="container border" id="section">
             <div class="container-fluid" id="container-cabecalho">          
-                <form name="form-ficha" {{-- action="{{ route('ficha.update', $personagem['id']) }}" --}} method="POST" class="form-ficha" autocomplete="off">  
+                <form name="form-ficha" method="POST" class="form-ficha" autocomplete="off">  
                     @csrf
                     <div class="row pt-2 mt-3">
                         {{-- Nome do Personagem --}}
