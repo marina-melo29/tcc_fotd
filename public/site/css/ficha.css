@@ -448,6 +448,13 @@ input:checked + label::before{
   border-radius:3px;
 }
 
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
+
+}
+
 .first-panel{
   background-color: transparent;
   max-height: 0;
@@ -466,12 +473,6 @@ input:checked + label::before{
   border-radius:3px;
 }
 
-.panel {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease-out;
-
-}
 
 .second-panel{
   padding: 0 10px;

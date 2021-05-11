@@ -1,11 +1,68 @@
+function checkAttributes(){
+    var attr_sab = $("#quant-sab").val();
+    var mod_sab = Modifier_Calc__int(attr_sab);
+    var bp = $("#bp").val(); 
+    var pp = 0;
+   
+    if (document.getElementById("Percepção").checked) {
+        pp += bp;
+        console.log(pp);
+    }else{
+        console.log("n");
+    }
+}
 
-function checkchanges()
+/*function checkChanges()
+{
+    $('form[name="form-ficha"]').on('change',function(){
+        $("#submit").attr("disabled", false);
+        document.getElementById("submit").style.backgroundColor = "#b22222e3";
+        document.getElementById("submit").style.borderColor     = "#b22222e3";                    
+    });
+
+    $('button[type=button]').on('click',function(){
+        $("#submit").attr("disabled", false);
+        document.getElementById("submit").style.backgroundColor = "#b22222e3";
+        document.getElementById("submit").style.borderColor     = "#b22222e3";                    
+    }); 
+                               
+}*/
+
+function saveChanges()
 {
 
 }
 
-function savechanges()
+function Modifier_Calc__int(attr)
 {
+    if(attr == 8 || attr == 9)
+    {
+        return -1;
+    }
+    else if(attr == 10 || attr == 11)
+    {
+        return 0;
+    }
+    else if(attr == 12 || attr == 13)
+    {
+        return 1;
+    }
+    else if(attr == 14 || attr == 15)
+    {
+        return 2;
+    }
+    else if(attr == 16 || attr == 17)
+    {
+        return 3;
+    }
+    else if(attr == 18 || attr == 19)
+    {
+        return 4;
+    }
+    else if(attr == 20)
+    {
+        return 5;
+    }
 
 }
 
@@ -57,6 +114,8 @@ function accordion(){
         } 
     });
     }
+    
+    
 }
     
 
