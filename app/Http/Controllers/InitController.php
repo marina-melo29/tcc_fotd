@@ -13,6 +13,28 @@ class InitController extends Controller
         //$this->middleware('auth')->only(['index']);
     }
 
+    public function response($request)
+    {
+    	
+    	if(2 == 2){
+    		$teste['success'] = true;
+            $teste['message'] = "Success";
+
+            echo json_encode($teste);
+            return;
+        
+    	}
+    	else
+    	{
+    		$teste['success'] = false;
+            $teste['message'] = $t;
+
+            echo json_encode($teste);
+            return;	
+    	}           
+                    
+         
+    }
 
     public function index()
     {        

@@ -130,7 +130,7 @@
             <!-- Caminho para um bom RPG -->
             <div class="row featurette">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading">O CAMINHO PARA UM BOM RPG <span class="text-muted">It'll blow your mind.</span></h2>
+                    <h2 class="featurette-heading">O CAMINHO PARA UM BOM RPG</h2>
                     <h5>Participe Ativamente</h5>
                     <p class="lead p-featurette">Mostre como seu personagem é, interaja com os NPC's, com os outros jogadores e com o cenário a sua volta.<br>
                         Se você for um jogador muito passivo e não participar das decisões do grupo ou esperar sempre que os outros ajam primeiro
@@ -172,7 +172,7 @@
     
             <div class="row featurette">
               <div class="col-md-7 order-md-2">
-                <h2 class="featurette-heading">Os Três Pilares da Aventura<span class="text-muted">See for yourself.</span></h2>
+                <h2 class="featurette-heading">Os Três Pilares da Aventura</h2>
                 
                 <h5>Exploração</h5>
 
@@ -275,7 +275,7 @@
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
             
             @if($lggd == "true")
-                <form name="form-avaliacao" method="POST" class="form-ficha" autocomplete="off">
+                
                     <div class="vote">
                         <label>
                             <input type="radio" name="fb" value="1" />
@@ -298,7 +298,7 @@
                             <i class="fa"></i>
                         </label>
                     </div>
-                </form>
+                
             @endif
         </div>
 

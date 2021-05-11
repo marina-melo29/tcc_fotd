@@ -118,7 +118,7 @@
                             <h6>Bônus de Proficiência</h6>
                             <div class="number-input sm-number-input lg-number-input">
                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                <input class="quantity" min="2" name="bp" value="{{ $personagem['bp'] }}" type="number">
+                                <input class="quantity" min="2" id="bp" name="bp" value="{{ $personagem['bp'] }}" type="number">
                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                             </div>
                         </nav>
@@ -186,7 +186,7 @@
                                 <div class="number-input sm-number-input lg-number-input">
                                     <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_sab"></button>
                                     <input class="quantity" id="quant-sab" min="8" max="20" name="sab" value="{{ ($personagem['atributos']['sabedoria'] !=null) ? $personagem['atributos']['sabedoria'] : 8 }}" type="number" readonly>
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus  atr_sab"></button>
+                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus atr_sab"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_sab"></p></div>
                             </div>
@@ -317,12 +317,12 @@
                                                         @for ($j = 0; $j < count($pericias[$i]); $j++)
                                                             @if ($pericias[$i][$j]['checked'])
 
-                                                                <input type="checkbox" checked  id="{{ $pericias[$i][$j]['nm_pericia'] }}" name="pericias[]"      value={{ $pericias[$i][$j]["id_pericia"] }}>
+                                                                <input type="checkbox" checked  id="{{ $pericias[$i][$j]['nm_pericia'] }}" name="pericias[]"      value="{{ $pericias[$i][$j]['id_pericia'] }}">
                                                                 <label for="{{ $pericias[$i][$j]['nm_pericia'] }}">{{ $pericias[$i][$j]['nm_pericia'] }}</label>
                                                             
                                                             @else
 
-                                                                <input type="checkbox"   id="{{ $pericias[$i][$j]['nm_pericia'] }}"       name="pericias[]"       value={{ $pericias[$i][$j]["id_pericia"] }}>
+                                                                <input type="checkbox"   id="{{ $pericias[$i][$j]['nm_pericia'] }}"       name="pericias[]"       value="{{ $pericias[$i][$j]['id_pericia'] }}">
                                                                 <label for="{{ $pericias[$i][$j]['nm_pericia'] }}">{{ $pericias[$i][$j]['nm_pericia'] }}</label>
                                                             
                                                             @endif
@@ -380,24 +380,7 @@
 
                                 <button type="button" class="accordion second-accordion" maxlength="300">Equipamento</button>
                                 <div class="panel second-panel">
-                                    <textarea name="notes" class="notes"></textarea>
-                                    {{-- @for($i = 0; $i < count($racas); $i++)
-                                        @if ($armadura[$i]->tipo_armadura == $personagem['armadura']->tipo_armadura)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="armadura" id="armor" value="option1" checked>
-                                                <label class="form-check-label" for="armor">
-                                                    valor
-                                                </label>
-                                            </div>
-                                        @else
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="armadura" id="armor" value="option1">
-                                                <label class="form-check-label" for="armor">
-                                                    valor
-                                                </label>
-                                            </div>
-                                        @endif                                        
-                                    @endfor --}}                                    
+                                    <textarea name="equipamentos" class="notes"></textarea>                                                                       
                                     
                                 </div>                    
                                
@@ -412,6 +395,7 @@
 
         <script>
             accordion();
+            checkAttributes();
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 
@@ -429,20 +413,28 @@
                             if(response.success === true){ 
                                 document.getElementById("submit").style.backgroundColor = "grey";
                                 document.getElementById("submit").style.borderColor     = "grey"; 
-                                document.getElementById("submit").style.color           = "#f8fafc";                              
+                                document.getElementById("submit").style.color           = "#f8fafc";   
+                                $("#submit").attr("disabled", true);                           
                                 //console.log(response);                                
                             }else{
-                                console.log("erro");
+                                console.log("erro de conexão");
                             }
                         }
                     });
                 });
-
-                $('form[name="form-ficha"]').on('change',function(){
-                    document.getElementById("submit").style.backgroundColor = "#b22222e3";
-                    document.getElementById("submit").style.borderColor     = "#b22222e3";
-                });
+                
             });
+
+            $('form[name="form-ficha"]').on('change',function(){
+                    $("#submit").attr("disabled", false);
+                    document.getElementById("submit").style.backgroundColor = "#b22222e3";
+                    document.getElementById("submit").style.borderColor     = "#b22222e3";                    
+                });
+            $('button[type=button]').on('click',function(){
+                    $("#submit").attr("disabled", false);
+                    document.getElementById("submit").style.backgroundColor = "#b22222e3";
+                    document.getElementById("submit").style.borderColor     = "#b22222e3";                    
+                });    
 
         </script>
         

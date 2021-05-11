@@ -43,27 +43,26 @@ $(document).ready(function(){
 });
 
 function enviaAvaliacao(val){
-    console.log(val);
-    $('form[name="form-ficha"]').submit(function(event){
-        event.preventDefault();   
-                     
                     $.ajax({
-                        url: "{{ route('ficha.response', $personagem['id']) }}",
+                        url: "{{ route('eval.response') }}",
                         type: 'post',
-                        data: $(this).serialize(),
+                        data: val,
                         dataType: 'json',
                         success: function(response){
                             if(response.success === true){ 
-                                document.getElementById("submit").style.backgroundColor = "grey";
-                                document.getElementById("submit").style.borderColor     = "grey"; 
-                                document.getElementById("submit").style.color           = "#f8fafc";                              
-                                //console.log(response);                                
+
+                                console.log(response); 
+
                             }else{
+
                                 console.log("erro");
+
                             }
                         }
-                    });            
-    });
+                    });       
+                     
+                                
+    
 }
 function accordion(){
     var acc = document.getElementsByClassName("accordion");

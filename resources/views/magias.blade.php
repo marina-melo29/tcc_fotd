@@ -37,7 +37,7 @@
                                 </div>
 
                                 <div class="nivel col-4 my-1">
-                                    <label for="nivel">Nivel</label>                                                                
+                                    <label for="nivel">Nivel</label><br>                                                                
                                     <select name="nivel" id="nivel" class="selectpicker">
                                         <option value="%all_items%">Todos</option>
                                         @for ($i = 0; $i < 10; $i++)
@@ -47,7 +47,7 @@
                                 </div>
                                                                 
                                 <div class="classe col-5 my-1">   
-                                    <label for="classe">Classe</label>                                 
+                                    <label for="classe">Classe</label><br>                                 
                                     <select name="classe" id="classe" class="selectpicker">
                                         <option value="%all_items%">Todas</option>
                                         @for($i = 0; $i < count($classes); $i++)                                                                                        
