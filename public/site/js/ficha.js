@@ -1,15 +1,17 @@
 function checkAttributes(){
     var attr_sab = $("#quant-sab").val();
-    var mod_sab = Modifier_Calc__int(attr_sab);
-    var bp = $("#bp").val(); 
-    var pp = 0;
+    var bp = parseInt($("#bp").val()); 
+    var pp = 10;
+    var mod_sab = parseInt(Modifier_Calc($("#quant-sab").val()));
    
     if (document.getElementById("Percepção").checked) {
         pp += bp;
-        console.log(pp);
-    }else{
-        console.log("n");
     }
+
+    pp += mod_sab;
+
+    document.getElementById("pp").value = pp;
+    
 }
 
 /*function checkChanges()
@@ -30,39 +32,6 @@ function checkAttributes(){
 
 function saveChanges()
 {
-
-}
-
-function Modifier_Calc__int(attr)
-{
-    if(attr == 8 || attr == 9)
-    {
-        return -1;
-    }
-    else if(attr == 10 || attr == 11)
-    {
-        return 0;
-    }
-    else if(attr == 12 || attr == 13)
-    {
-        return 1;
-    }
-    else if(attr == 14 || attr == 15)
-    {
-        return 2;
-    }
-    else if(attr == 16 || attr == 17)
-    {
-        return 3;
-    }
-    else if(attr == 18 || attr == 19)
-    {
-        return 4;
-    }
-    else if(attr == 20)
-    {
-        return 5;
-    }
 
 }
 
@@ -183,6 +152,23 @@ $(document).ready(function(){
     });
 
     
+    //Quando aumentar ou diminuir a sabedoria ou o BP ou mexer na perícia percepção, altera a PP
+    $("#plus_atr_sab").click(function(){
+        checkAttributes();
+    });
+    $("#minus_atr_sab").click(function(){
+        checkAttributes();
+    });
+    $("#plus_bp").click(function(){
+        checkAttributes();
+    });
+    $("#minus_bp").click(function(){
+        checkAttributes();
+    });
+
+    $("#Percepção").click(function(){
+        checkAttributes();
+    });
     
 });
 

@@ -31,7 +31,7 @@ class CharacterController extends Controller
             "id_usuario"        => $user_id,
             "nm_personagem"     => "Nome do Personagem",
             "nivel"             => 1,
-            "percepcao_passiva" => 0,
+            "percepcao_passiva" => 9,
             "iniciativa"        => 0,
             "bonus_proficiencia"=> 2,
             "pontos_de_vida"    => 20,
