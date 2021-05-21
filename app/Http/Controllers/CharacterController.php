@@ -114,7 +114,7 @@ class CharacterController extends Controller
             "deslocamento"          => $request->deslocamento,
             "inspiracao"            => $request->insp,
             "outras_proficiencias"  => $request->outras_prof,
-            "outras_caracteristicas"=> $request->outras_caract_e_talentos,
+            "outras_caracteristicas"=> $request->caract_e_talentos,
         ];
 
         $character_atributtes_new_data = [

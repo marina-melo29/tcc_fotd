@@ -36,8 +36,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/historico/ficha/{id_personagem}/update',  [CharacterController::class,'update'])          ->name('ficha.update');
     Route::post('/historico/ficha/{id_personagem}/delete',  [CharacterHistoricController::class,'destroy']) ->name('ficha.delete');
     Route::post('/historico/ficha/{id_personagem}',         [CharacterController::class,'getEditor'])       ->name('user.ficha');
-    Route::post('/magias/response',                         [MagicsController::class,'response'])           ->name('magias.response');
-    Route::post('/magias/get-magia/',                       [MagicsController::class,'getMagic'])           ->name('magia.get');
+    // Route::get('/magias/response',                         [MagicsController::class,'response'])           ->name('magias.response');
+    Route::any('/magias/get-magia/',                       [MagicsController::class,'getMagic'])           ->name('magia.get');
     Route::post('/response',                                [InitController::class,'response'])             ->name('eval.response');
 
 });

@@ -1,3 +1,13 @@
+// function setEquipment(){
+
+//     if($("#plus_equip")){
+//         $("#plus_equip").remove();
+//     }
+
+//     var content = "<input id='new_equip' list='equipments_list'/><datalist id='equipments_list'><option value='chrome'></datalist>";
+//     $("#equipamentos").append(content+"<div id='plus_equip'>+</div>");
+// }
+
 function checkAttributes(){
     var attr_sab = $("#quant-sab").val();
     var bp = parseInt($("#bp").val()); 
@@ -153,23 +163,17 @@ $(document).ready(function(){
 
     
     //Quando aumentar ou diminuir a sabedoria ou o BP ou mexer na perícia percepção, altera a PP
-    $("#plus_atr_sab").click(function(){
-        checkAttributes();
-    });
-    $("#minus_atr_sab").click(function(){
-        checkAttributes();
-    });
-    $("#plus_bp").click(function(){
-        checkAttributes();
-    });
-    $("#minus_bp").click(function(){
+    $("#plus_atr_sab, #minus_atr_sab, #plus_bp, #minus_bp, #Percepção").click(function(){
         checkAttributes();
     });
 
-    $("#Percepção").click(function(){
-        checkAttributes();
-    });
-    
+    //Adição de equipamentos
+    // $("#equipamentos").ready(function(){
+    //     setEquipment();
+    // }).click(function(){
+    //     setEquipment();
+    // });    
+
 });
 
 

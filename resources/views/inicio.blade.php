@@ -260,7 +260,7 @@
             <!-- BY -->
             <div class="row">              
                 <div class="col align-self-center">
-                  <img class="rounded-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="" width="140" height="140">
+                  <img class="rounded-circle" src="{{ asset('site/images/index/perfil.jpg') }}" alt="" width="140" height="140">
                   <h2>Criado por Marina S. Melo</h2>
                   <p>Olá grande aventureiro! Me chamo Marina e desde muito tempo sou apaixonada por D&D. Sempre
                       que possível, estarei trabalhando em novidades para a plataforma. Fique a vontade para avaliar!

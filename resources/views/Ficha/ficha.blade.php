@@ -378,11 +378,13 @@
                                     <textarea name="caract_e_talentos" class="notes" maxlength="300">{{ $personagem['caract_e_talentos'] }}</textarea>
                                 </div>
 
-                                <button type="button" class="accordion second-accordion" maxlength="300">Equipamento</button>
+                                <!-- <button type="button" class="accordion second-accordion" maxlength="300">Equipamento</button>
                                 <div class="panel second-panel">
-                                    <textarea name="equipamentos" class="notes"></textarea>                                                                       
+                                    <div name="equipamentos" id="equipamentos" class="equipments">
+                                        <div class=""></div>
+                                    </div>                                                                      
                                     
-                                </div>                    
+                                </div>  -->                   
                                
                             </div>
                         </nav>

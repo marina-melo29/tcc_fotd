@@ -29,6 +29,7 @@ class Tb_Magias extends Model
 
     public function getSearchedMagic($magics_data)
     {        
+        $spellcasters = [];
         for ($i=0; $i < count($magics_data); $i++) { 
             $spellcasters[$magics_data[$i]->id_magia] = '';
             $classe_magias = Tb_Classe_Magias::Select('id_classe')->Where('id_magia',$magics_data[$i]->id_magia)->get();
@@ -46,7 +47,7 @@ class Tb_Magias extends Model
     public function getMagic($name, $level, $class){
         $magic = Tb_Magias::paginate(12);
         
-        if($name != '')
+        if($name != '' && $name != null)
         { # Aqui o usuário digitou o nome da magia
 
             $magic = Tb_Magias::Where('nm_magia','LIKE',"%".ucfirst($name)."%")->paginate(12);
@@ -72,8 +73,9 @@ class Tb_Magias extends Model
 
             if($level != "%all_items%" && $class != "%all_items%")
             { # Usuário selecionou um level e uma classe
-                
-                $magic = Tb_Magias::Where('nivel_magia',$level,'and','id_classe',$class)->paginate(12);
+
+                $classe_magias = Tb_Classe_Magias::select('id_magia')->where('id_classe',$class)->get();
+                $magic = Tb_Magias::WhereIn('id_magia',$classe_magias)->where('nivel_magia',$level)->paginate(12);
             }            
 
         }
