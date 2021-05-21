@@ -17,34 +17,58 @@ class MagicsController extends Controller
     }
 
     public function index(){
-        return $this->getMagics();        
-    }
-
-    public function getMagics(){
         $classe         = new Tb_Magias();
-        $conjuradores   = $classe->getSpellcasters();
-        $user_id        = Auth::user();
+        $spellcasters   = $classe->getSpellcasters();
+        //$user_id        = Auth::user();
         $magics         = Tb_Magias::paginate(12);
         $classes        = Tb_Classe::all();
-        return view("magias",['usuario'=>$user_id,'magias'=>$magics, 'conjuradores'=>$conjuradores,'classes'=>$classes]);
+        return $this->getMagics($magics, $spellcasters,$classes);        
     }
 
-    public function response(Request $request)
-    {   
-        if($request->pesquisa_magia != null && $request->pesquisa_magia != ''){
-            $teste['success']  = true; 
-            $teste['nm_magia'] = $request->pesquisa_magia; 
-            $teste['nivel'] = $request->nivel;  
-            $teste['classe'] = $request->classe; 
-            $teste['ritual'] = $request->ritual; 
+    public function getMagics($magics, $spellcasters,$classes){
+        return view("magias",['magias'=>$magics, 'conjuradores'=>$spellcasters,'classes'=>$classes]);
+    }
 
-            echo json_encode($teste);
-        }else{
-            $teste['success'] = false;  
-            echo json_encode($teste);          
-        }
+    // public function response(Request $request)
+    // {   
+
+    //     try{
+
+
+    //         //$update = $this->getMagic($request);
+    //         #requests
+    //         $name  = $request->pesquisa_magia; 
+    //         $level = $request->nivel; 
+    //         $classe = $request->classe; 
+
+    //         #Call magics function
+    //         $magic_table = new Tb_Magias();
+    //         $magic       = $magic_table->getMagic($name, $level, $classe);
+            
+    //         #Call spellcasters function
+    //         $spellcasters = $magic_table->getSearchedMagic($magic);
+
+    //         #Get all classes
+    //         $classes      = Tb_Classe::all();  
+
+    //         $teste['success'] = true;                
+    //         $teste['magias'] = $magic;
+    //         $teste['conjuradores'] = $spellcasters;
+    //         //$teste['classes'] = $classes;
+            
+    //         echo json_encode($teste);
+    //         return;
+            
+    //     }
+    //     catch(Throwable $t){
+    //         $teste['success'] = false;  
+    //         $teste['message'] = $t;
+
+    //         echo json_encode($teste);
+    //         return;
+    //     }
         
-    }
+    // }
 
     public function getMagic(Request $request){        
         
@@ -65,6 +89,9 @@ class MagicsController extends Controller
         
         
         return view("magias",['magias'=>$magic, 'conjuradores'=>$spellcasters, 'classes'=>$classes]);
+
     }
+
+
 
 }

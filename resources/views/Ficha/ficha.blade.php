@@ -108,7 +108,7 @@
                             <h6>Percepção Passiva</h6>
                             <div class="number-input sm-number-input lg-number-input">
                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                <input class="quantity" min="0" name="pp" value="{{ $personagem['pp'] }}" type="number">
+                                <input class="quantity" min="9" id="pp" name="pp" value="{{ $personagem['pp'] }}" type="number" readonly>
                                 <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                             </div>
                         </nav>
@@ -117,9 +117,9 @@
                         <nav class="col-2">
                             <h6>Bônus de Proficiência</h6>
                             <div class="number-input sm-number-input lg-number-input">
-                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
-                                <input class="quantity" min="2" id="bp" name="bp" value="{{ $personagem['bp'] }}" type="number">
-                                <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                <button type="button" id="minus_bp" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                <input class="quantity" min="2" id="bp" name="bp" value="{{ $personagem['bp'] }}" type="number" readonly>
+                                <button type="button" id="plus_bp" onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                             </div>
                         </nav>
 
@@ -184,9 +184,9 @@
                             <div class="attribute">
                                 <h5>Sab</h5>
                                 <div class="number-input sm-number-input lg-number-input">
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_sab"></button>
+                                    <button type="button" id="minus_atr_sab" onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus atr_sab"></button>
                                     <input class="quantity" id="quant-sab" min="8" max="20" name="sab" value="{{ ($personagem['atributos']['sabedoria'] !=null) ? $personagem['atributos']['sabedoria'] : 8 }}" type="number" readonly>
-                                    <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus atr_sab"></button>
+                                    <button type="button" id="plus_atr_sab" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"   class="plus atr_sab"></button>
                                 </div>
                                 <div class="square-mod" readonly><p id="result_sab"></p></div>
                             </div>
@@ -378,11 +378,13 @@
                                     <textarea name="caract_e_talentos" class="notes" maxlength="300">{{ $personagem['caract_e_talentos'] }}</textarea>
                                 </div>
 
-                                <button type="button" class="accordion second-accordion" maxlength="300">Equipamento</button>
+                                <!-- <button type="button" class="accordion second-accordion" maxlength="300">Equipamento</button>
                                 <div class="panel second-panel">
-                                    <textarea name="equipamentos" class="notes"></textarea>                                                                       
+                                    <div name="equipamentos" id="equipamentos" class="equipments">
+                                        <div class=""></div>
+                                    </div>                                                                      
                                     
-                                </div>                    
+                                </div>  -->                   
                                
                             </div>
                         </nav>
