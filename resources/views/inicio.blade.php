@@ -265,7 +265,7 @@
                   <p>Olá grande aventureiro! Me chamo Marina e desde muito tempo sou apaixonada por D&D. Sempre
                       que possível, estarei trabalhando em novidades para a plataforma. Fique a vontade para avaliar!
                   </p>
-                  {{-- <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p> --}}
+                  
                 </div>
             </div>
 
@@ -275,7 +275,8 @@
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
             
             @if($lggd == "true")
-                
+                <form name="form-avaliacao" method="post" autocomplete="off" class="form-avaliacao">
+                    @csrf
                     <div class="vote">
                         <label>
                             <input type="radio" name="fb" value="1" />
@@ -297,13 +298,36 @@
                             <input type="radio" name="fb" value="5" />
                             <i class="fa"></i>
                         </label>
-                    </div>
                 
+                    </div>
+                </form>
             @endif
         </div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
         <script>
-            accordion();            
+            accordion();     
+            $(function(){
+                $('form[name="form-avaliacao"]').change(function(event){
+                    //event.preventDefault();   
+                     
+                    $.ajax({
+                        url: "{{ route('aval') }}",
+                        type: 'post',
+                        data: { evaluation: $("input[name='fb']:checked").val(), _token: '{{csrf_token()}}' },
+                        dataType: 'json',
+                        success: function(response){
+                            if(response.success === true){                                     
+                                console.log(response);                                
+                            }else{
+                                console.log(response);
+                            }
+                        }
+                    });
+                });
+                
+            });
+            //sendEvaluation();       
         </script>
     @endsection
 
