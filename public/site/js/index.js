@@ -14,7 +14,7 @@ $(document).ready(function(){
                         $(this).addClass('active');
                     }
                 });
-                enviaAvaliacao(val);
+                
     });
 
             //Ao sair da div vote
@@ -42,28 +42,7 @@ $(document).ready(function(){
     });        
 });
 
-function enviaAvaliacao(val){
-                    $.ajax({
-                        url: "{{ route('eval.response') }}",
-                        type: 'post',
-                        data: val,
-                        dataType: 'json',
-                        success: function(response){
-                            if(response.success === true){ 
 
-                                console.log(response); 
-
-                            }else{
-
-                                console.log("erro");
-
-                            }
-                        }
-                    });       
-                     
-                                
-    
-}
 function accordion(){
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -90,3 +69,24 @@ function accordion(){
     
 }
 
+// function sendEvaluation(){
+
+//     $('form[name="form-avaliacao"]').change(function(event){
+//                     //event.preventDefault();   
+                     
+//                     $.ajax({
+//                         url: "{{ route('aval) }}",
+//                         type: 'post',
+//                         data: $(this).serialize(),
+//                         dataType: 'json',
+//                         success: function(response){
+//                             if(response.success === true){                           
+//                                 console.log(response);                                
+//                             }else{
+//                                 console.log(response);
+//                             }
+//                         }
+//                     });
+//     });                
+
+// }
