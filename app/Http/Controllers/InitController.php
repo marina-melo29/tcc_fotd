@@ -18,13 +18,25 @@ class InitController extends Controller
     public function index()
     {        
     	$islogged = "false";
+        $evaluation = null;
 
     	if (Auth::check()) 
     	{
     		$islogged = "true";
+
+            try
+            {
+
+                $evaluation = User::select('evaluation')->where('id',Auth::id())->first();
+
+            }catch(Throwable $th) {
+                echo "<script>console.log(".$th.")</script>";
+            }
+
     	}    	
 
-        return view('inicio',["lggd" => $islogged]);
+
+        return view('inicio',["lggd" => $islogged, "eval" => $evaluation]);
 
     }
 

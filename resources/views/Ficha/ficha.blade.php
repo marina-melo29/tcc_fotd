@@ -4,6 +4,7 @@
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('/site/js/ficha.js') }}"></script>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('site/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('site/styles.css') }}" rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/9c64415c62.js" crossorigin="anonymous"></script>
 </head>
 <body>
         
@@ -387,6 +388,72 @@
                                 </div>  -->                   
                                
                             </div>
+
+                            <div id="rolador" class="dice_rolls">
+    
+                               <h1>Dice Roller</h1>
+                                
+                               <form action="">
+                                     
+                                     <!-- <div id="checkbox">
+                                         <div class="checkbox">
+                                           <input id="advantage" type="checkbox" value="adv">advantage
+                                       </div>
+                                         <div class="checkbox">
+                                           <input id="disadvantage" type="checkbox" value="disadv">disadvantage
+                                         </div>
+                                     </div> -->
+                                     
+                                     <div class="form-group row">
+                                         
+                                       <div class="input-group col-xs-5 quant">
+                                     <span class="input-group-addon">Rolls:</span>
+                                     <input id="quant" type="number" class="form-control" value=1>
+                                       </div>
+                                     
+                                       <div class="input-group col-xs-5 faces">
+                                     <span class="input-group-addon">Dice:</span>
+                                     <select id="faces" class="form-control">
+                                         <option value=4> D4
+                                         <option value=6> D6
+                                           <option value=8> D8
+                                           <option value=10> D10
+                                           <option value=12> D12
+                                           <option selected value=20> D20
+                                               <option value=100> 100%
+                                       </select>
+                                       </div>
+                                             
+                                       <div class="input-group col-xs-5">
+                                     <span class="input-group-addon"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></span>
+                                     <input id="bonus" type="number" class="form-control"value=0>
+                                       </div>
+                                     </div>
+                                     
+                               </form>
+                                
+                                <div id="resultados" class="form-group">
+                                    
+                                    <p>Roll:</p>
+                                <div  class="input-group resultBox">
+                                  <div id="resultBox" class="form-control"></div>
+                                        
+                                        <div class="input-group-btn">
+                                      <button id="button" class="btn btn-default">
+                                          <i class="fa fa-refresh fa-2x"></i>
+                                      </button>
+                                    </div>
+                                        
+                                  </div>
+                                    
+                                    <p>Total:</p>
+                                    <div class="input-group totalBox">
+                                  <div id="totalBox" class="form-control"></div>
+                                    </div>
+                                    
+                                </div>
+                                                                                                
+                            </div>
                         </nav>
                        
                     </div>
@@ -398,6 +465,7 @@
         <script>
             accordion();
             checkAttributes();
+            dice_rolls();
         </script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js"></script>
 

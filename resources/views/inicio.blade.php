@@ -275,31 +275,24 @@
             <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
             
             @if($lggd == "true")
-                <form name="form-avaliacao" method="post" autocomplete="off" class="form-avaliacao">
+                <form name="form-avaliacao" method="post" class="form-avaliacao">
                     @csrf
                     <div class="vote">
-                        <label>
-                            <input type="radio" name="fb" value="1" />
-                            <i class="fa"></i>
-                        </label>
-                        <label>
-                            <input type="radio" name="fb" value="2" />
-                            <i class="fa"></i>
-                        </label>
-                        <label>
-                            <input type="radio" name="fb" value="3" />
-                            <i class="fa"></i>
-                        </label>
-                        <label>
-                            <input type="radio" name="fb" value="4" />
-                            <i class="fa"></i>
-                        </label>
-                        <label>
-                            <input type="radio" name="fb" value="5" />
-                            <i class="fa"></i>
-                        </label>
-                
-                    </div>
+                            @for($i=1; $i < 6; $i++)
+                                @if($eval->evaluation == $i)
+                                <label>
+                                    <input type="radio" name="fb" value="{{ $i }}" checked />
+                                    <i class="fa"></i>
+                                </label>
+                                @else
+                                <label>
+                                    <input type="radio" name="fb" value="{{ $i }}" />
+                                    <i class="fa"></i>
+                                </label>
+                                @endif
+                            @endfor
+                    </div> 
+                                 
                 </form>
             @endif
         </div>
@@ -327,7 +320,7 @@
                 });
                 
             });
-            //sendEvaluation();       
+                  
         </script>
     @endsection
 
