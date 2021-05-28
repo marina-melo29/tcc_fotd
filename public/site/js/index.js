@@ -69,6 +69,9 @@ function accordion(){
     
 }
 
+
+
+
 // function sendEvaluation(){
 
 //     $('form[name="form-avaliacao"]').change(function(event){
