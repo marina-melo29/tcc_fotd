@@ -185,7 +185,7 @@ class CharacterController extends Controller
         $character["pv_atual"]    = $character_data->pontos_de_vida_atual;
         $character["pp"]          = $character_data->percepcao_passiva;
         $character["bp"]          = $character_data->bonus_proficiencia; 
-        $character["alinhamento"] = Tb_Alinhamentos::where('id',$character_data->id_alinhamento)->first();;
+        $character["alinhamento"] = Tb_Alinhamentos::where('id',$character_data->id_alinhamento)->first();
         $character["antecedente"] = $character_data->nm_antecedente;
         $character["iniciativa"]  = $character_data->iniciativa;  
         $character["deslocamento"]= $character_data->deslocamento;   

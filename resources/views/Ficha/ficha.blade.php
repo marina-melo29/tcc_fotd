@@ -83,12 +83,12 @@
 
                                         @if ($personagem['alinhamento'] != null)
                                             @if ($alinhamento[$i]->nm_alinhamento == $personagem['alinhamento']->nm_alinhamento)
-                                                <option value="{{ $alinhamento[$i]->id_alinhamento }}" selected>{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                                <option value="{{ $alinhamento[$i]->id }}" selected>{{ $alinhamento[$i]->nm_alinhamento }}</option>
                                             @else
-                                                <option value="{{ $alinhamento[$i]->id_alinhamento }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                                <option value="{{ $alinhamento[$i]->id }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
                                             @endif
                                         @else
-                                            <option value="{{ $alinhamento[$i]->id_alinhamento }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                            <option value="{{ $alinhamento[$i]->id }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
                                         @endif
                                                                                 
                                     @endfor
@@ -473,7 +473,7 @@
             $(function(){
                 $('form[name="form-ficha"]').submit(function(event){
                     event.preventDefault();   
-                     
+                     console.log($(this).serialize());
                     $.ajax({
                         url: "{{ route('ficha.response', $personagem['id']) }}",
                         type: 'post',
