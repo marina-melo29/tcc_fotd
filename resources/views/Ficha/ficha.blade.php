@@ -473,7 +473,7 @@
             $(function(){
                 $('form[name="form-ficha"]').submit(function(event){
                     event.preventDefault();   
-                     console.log($(this).serialize());
+                     
                     $.ajax({
                         url: "{{ route('ficha.response', $personagem['id']) }}",
                         type: 'post',
