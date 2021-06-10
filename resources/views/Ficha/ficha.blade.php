@@ -85,7 +85,7 @@
                                             @if ($alinhamento[$i]->nm_alinhamento == $personagem['alinhamento']->nm_alinhamento)
                                                 <option value="{{ $alinhamento[$i]->id }}" selected>{{ $alinhamento[$i]->nm_alinhamento }}</option>
                                             @else
-                                                <option value="{{ $alinhamento[$i]->id}}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
+                                                <option value="{{ $alinhamento[$i]->id }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
                                             @endif
                                         @else
                                             <option value="{{ $alinhamento[$i]->id }}">{{ $alinhamento[$i]->nm_alinhamento }}</option>
