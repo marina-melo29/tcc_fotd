@@ -73,7 +73,7 @@ class CharacterController extends Controller
 
             foreach ($request->pericias as $value) {
                 //dd($value);
-                $expertises_new_data[] = [
+                $expertises_new_data = [
                     'id_personagem' => $character_id,
                     'id_pericia'    => $value
                 ];
