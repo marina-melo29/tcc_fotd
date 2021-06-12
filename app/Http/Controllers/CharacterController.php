@@ -69,6 +69,8 @@ class CharacterController extends Controller
 
         if($request->pericias != null)
         {
+            #Entra aqui caso o usuário tiver selecionado perícias
+
             foreach ($request->pericias as $value) {
                 //dd($value);
                 $expertises_new_data = [
