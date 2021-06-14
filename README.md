@@ -8,9 +8,9 @@
 </p>
 
 ## Requisitos:
--> Composer
--> Laravel 8
--> PHP 7.3 ou maior
+<p> -> Composer </p>
+<p> -> Laravel 8 </p>
+<p> -> PHP 7.3 ou maior </p>
 
 
 ## Learning Laravel
