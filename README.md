@@ -11,7 +11,11 @@
 <p> -> Composer </p>
 <p> -> Laravel 8 </p>
 <p> -> PHP 7.3 ou maior </p>
+<p> -> Banco de dados PostgreSQL </p>
 
+## Banco de Dados
+<p> 1. Configurar senha do seu banco no arquivo .env do projeto. </p>
+<p> 2. O Backup do banco consta no projeto com o nome 'BD'. Basta importá-lo no PgAdmin4. É possível que dê um erro ao final da importação, mas isto não será problema, apenas certifique-se que as tabelas foram criadas. </p>
 
 ## Learning Laravel
 
